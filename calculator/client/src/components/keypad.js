@@ -3,12 +3,12 @@ import React, {Component} from 'react';
 
 class KeySquare extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick(){
+  handleClick() {
     this.props.onClickKeySquare(this.props.value)
   }
 
@@ -23,13 +23,25 @@ class KeySquare extends Component {
 
 class Keypad extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
     this.onClickKeySquare = this.onClickKeySquare.bind(this);
   }
 
-  onClickKeySquare(c){
-    this.props.onClickAddExpr(c);
+  onClickKeySquare(key) {
+    console.log(key);
+    if (key === 'C') {
+      this.props.onClickFuncs.clearExpr();
+    }
+    else if (key === 'D') {
+      this.props.onClickFuncs.delExpr();
+    }
+    else if (key === '=') {
+      console.log("Calculate");
+      this.props.onClickFuncs.calcExpr();
+    }
+    else
+      this.props.onClickFuncs.addExpr(key);
   }
 
   renderKeySquare(key) {
