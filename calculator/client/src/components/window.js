@@ -11,15 +11,19 @@ class Window extends Component {
     const color2 = {backgroundColor: '#cfedff'};
 
     return (
-      <Grid className="container-fluid">
-        <Row className="show-grid">
-          <Col id="div-form" sm={8} style={color2}>
-            <Display/>
+      <Grid className="window">
+        <Row  >
+          <Col id="div-col" style={color2}>
+            <div id={"div-content"}>
+              <Display/>
+            </div>
           </Col>
         </Row>
-        <Row className="show-grid">
-          <Col id="div-form" sm={8} style={color1}>
-            <Keypad/>
+        <Row >
+          <Col id="div-col" style={color1}>
+            <div id={"div-content"}>
+              <Keypad/>
+            </div>
           </Col>
         </Row>
       </Grid>
