@@ -4,7 +4,9 @@ class Display extends Component {
 
   render() {
     return(
-      <p> Hello From Display</p>
+      <div id="div-display">
+        0
+      </div>
     );
   }
 }
