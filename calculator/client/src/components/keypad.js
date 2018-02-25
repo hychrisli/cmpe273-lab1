@@ -2,9 +2,19 @@ import React, {Component} from 'react';
 
 
 class KeySquare extends Component {
+
+  constructor(props){
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(){
+    this.props.onClickKeySquare(this.props.value)
+  }
+
   render() {
     return (
-      <button className="key-square">
+      <button className="key-square" onClick={this.handleClick}>
         {this.props.value}
       </button>
     );
@@ -13,8 +23,17 @@ class KeySquare extends Component {
 
 class Keypad extends Component {
 
+  constructor(props){
+    super(props);
+    this.onClickKeySquare = this.onClickKeySquare.bind(this);
+  }
+
+  onClickKeySquare(c){
+    this.props.onClickAddExpr(c);
+  }
+
   renderKeySquare(key) {
-    return <KeySquare value={key}/>;
+    return <KeySquare value={key} onClickKeySquare={this.onClickKeySquare}/>;
   }
 
   render() {

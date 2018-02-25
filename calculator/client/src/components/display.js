@@ -5,7 +5,7 @@ class Display extends Component {
   render() {
     return(
       <div id="div-display">
-        0
+        {this.props.expr.join('')}
       </div>
     );
   }
