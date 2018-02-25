@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 
-
 class KeySquare extends Component {
 
   constructor(props) {

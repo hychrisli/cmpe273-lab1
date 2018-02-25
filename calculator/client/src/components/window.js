@@ -33,13 +33,34 @@ class Window extends Component {
   }
 
   calcExpr() {
-    try{
+    this.callApi()
+      .then(res => this.setState({expr:[res]}))
+      .catch(err => console.log(err));
+
+/*    try{
       let result = eval(this.state.expr.join(''));
       this.setState({expr: [result]})
     }catch(SyntaxEror){
       console.log("wrong expression");
-    }
+    }*/
   }
+
+  callApi = async() => {
+    const response = await fetch('/calc', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        expr: this.state.expr.join('')
+      })
+    });
+    const body = await response.json();
+    if ( response.status !== 200) throw Error(body.message);
+
+    return body;
+  };
 
   render() {
     const color1 = {backgroundColor: '#ffd9ad'};
@@ -70,7 +91,6 @@ class Window extends Component {
       </Grid>
     )
   }
-
 }
 
 export default Window;
