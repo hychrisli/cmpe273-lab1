@@ -4,9 +4,8 @@ class Display extends Component {
 
   render() {
     return(
-      <div id="div-display">
-        {this.props.calcParm.expr.join('')}
-      </div>
+      <input type="text" id="div-display"
+                value={this.props.calcParm.expr.join('')}/>
     );
   }
 }

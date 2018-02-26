@@ -54,4 +54,5 @@ form {
   width: 170px;
   font-size: 24px;
   font-weight: bold;
+  resize: horizontal;
 }
