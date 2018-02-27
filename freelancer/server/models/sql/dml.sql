@@ -1,0 +1,62 @@
+DROP DATABASE flc;
+CREATE DATABASE flc;
+GRANT ALL on flc.* to 'flcuser'@'localhost';
+USE flc;
+
+CREATE TABLE IF NOT EXISTS USER (
+  username VARCHAR(20) PRIMARY KEY ,
+  first_name VARCHAR(20),
+  last_name VARCHAR(20),
+  password VARCHAR(20) NOT NULL,
+  email VARCHAR(20) NOT NULL,
+  image VARCHAR(20),
+  about_me VARCHAR(200)
+);
+
+CREATE TABLE IF NOT EXISTS SKILL (
+  skill_id INTEGER PRIMARY KEY AUTO_INCREMENT,
+  skill_name VARCHAR(20)
+);
+
+CREATE TABLE IF NOT EXISTS USER_SKILL(
+  username VARCHAR(20),
+  skill_id INTEGER,
+  FOREIGN KEY (username) REFERENCES USER(username),
+  FOREIGN KEY (skill_id) REFERENCES SKILL(skill_id)
+);
+
+CREATE TABLE IF NOT EXISTS PROJECT(
+  project_id INTEGER PRIMARY KEY AUTO_INCREMENT,
+  title VARCHAR(30) NOT NULL,
+  description VARCHAR(200) NOT NULL,
+  employer VARCHAR(20) NOT NULL,
+  min_budget DECIMAL DEFAULT 0.0,
+  max_budget DECIMAL DEFAULT 9999.00,
+  start_date DATE NOT NULL,
+  status INTEGER NOT NULL DEFAULT 1,
+  chosen_bid INTEGER,
+  FOREIGN KEY(employer) REFERENCES USER(username)
+);
+
+CREATE TABLE IF NOT EXISTS PROJECT_SKILL(
+  project_id INTEGER,
+  skill_id INTEGER,
+  FOREIGN KEY (project_id) REFERENCES PROJECT(project_id),
+  FOREIGN KEY (skill_id) REFERENCES SKILL(skill_id)
+);
+
+CREATE TABLE IF NOT EXISTS PROJECT_FILE(
+  project_id INTEGER,
+  file  varchar(30),
+  FOREIGN KEY (project_id) REFERENCES PROJECT(project_id)
+);
+
+CREATE TABLE IF NOT EXISTS PROJECT_BID(
+  bid_id INTEGER PRIMARY KEY AUTO_INCREMENT,
+  username VARCHAR(20) NOT NULL,
+  project_id INTEGER NOT NULL,
+  bid_price DECIMAL NOT NULL,
+  bid_days INTEGER NOT NULL,
+  FOREIGN KEY (project_id) REFERENCES PROJECT(project_id),
+  FOREIGN KEY (username) REFERENCES USER(username)
+);
