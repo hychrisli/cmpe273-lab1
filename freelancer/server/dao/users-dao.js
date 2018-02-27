@@ -1,17 +1,16 @@
-const Model = require('../models/user-model');
+const {cnxPool, selectPromise} = require('./db');
+const Crud = require('mysql-crud');
+const userCrud = Crud(cnxPool, 'USER');
 
-module.exports =  class UserDao{
-  constructor(){
-    this.data = new Map();
-    this.data.set(1, new Model(1, "Chris", "123"));
-    this.data.set(2, new Model(2, 'HyX', "456"));
-  };
+module.exports = {
 
-  retrieveAll(){
-    return Array.from(this.data.values());
-  };
+  retrieveAll: () => {
+    return selectPromise(userCrud.load, {});
+  },
 
-  retrieve(id){
-    return this.data.get(id);
-  };
+  retrieve: (username) => {
+    return selectPromise(userCrud.load, {username: username});
+  }
+
 };
+

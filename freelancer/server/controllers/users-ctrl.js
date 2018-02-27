@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const UserDao = require('../dao/users-dao');
-const dao = new UserDao();
+const userDao = require('../dao/users-dao');
+const {promiseResponse} = require('./ctrls');
 
 /**
  * @swagger
@@ -16,36 +16,32 @@ const dao = new UserDao();
  *        schema:
  *          $ref: '#/definitions/Users'
  */
-router.get('/', (req, res, next) => {
-  const response = dao.retrieveAll();
-  res.status(200).json(response);
+router.get('/', (req, res) => {
+  promiseResponse (userDao.retrieveAll(), res);
 });
 
 
 /**
  * @swagger
- * /users/{id}:
+ * /users/{username}:
  *  get:
  *    description: Retrieve User Info
  *    produces:
  *      - application/json
  *    parameters:
- *      - name: id
- *        description: id of a user
+ *      - name: username
+ *        description: username
  *        in: path
  *        required: true
- *        type: number
+ *        type: string
  *    responses:
  *      200:
- *        description: users
+ *        description: a user
  *        schema:
  *          $ref: '#/definitions/User'
  */
-router.get('/:id', function(req, res, next){
-  console.log(req.params.id);
-  const response = dao.retrieve(Number(req.params.id));
-  console.log(response);
-  res.send(response);
+router.get('/:username', function(req, res, next){
+  promiseResponse(userDao.retrieve(req.params.username), res);
 });
 
 module.exports = router;
