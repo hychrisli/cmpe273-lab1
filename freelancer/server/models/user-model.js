@@ -4,15 +4,23 @@
  *  User:
  *    type: object
  *    required:
- *      - uid
  *      - username
  *      - password
+ *      - email
  *    properties:
- *      uid:
- *        type: number
  *      username:
  *        type: string
+ *      first_name:
+ *        type: string
+ *      last_name:
+ *        type: string
  *      password:
+ *        type: string
+ *      email:
+ *        type: string
+ *      image:
+ *        type: string
+ *      about_me:
  *        type: string
  *  Users:
  *    type: array
@@ -20,9 +28,13 @@
  *      $ref: '#/definitions/User'
  */
 module.exports = class User {
-  constructor(uid, username, password) {
-    this.uid = uid;
+  constructor(username, first_name, last_name, password, email, image, about_me) {
     this.username = username;
+    this.first_name = first_name;
+    this.last_name = last_name;
     this.password = password;
+    this.email = email;
+    this.image = image;
+    this.about_me = about_me;
   }
 };

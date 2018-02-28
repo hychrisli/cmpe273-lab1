@@ -10,7 +10,14 @@ module.exports = {
 
   retrieve: (username) => {
     return selectPromise(userCrud.load, {username: username});
-  }
+  },
 
+  insert: (attr) => {
+    return selectPromise(userCrud.create, attr);
+  },
+
+  update: (attr) => {
+    return selectPromise(userCrud.update, attr);
+  }
 };
 
