@@ -41,7 +41,10 @@ router.get('/', (req, res) => {
  *        description: a project
  */
 router.get('/:project_id', function (req, res, next) {
-  promiseResponse(projDao.retrieve(Number(req.params.project_id)), res);
+  const project_id = req.params.project_id;
+  if ( project_id !== undefined )
+    promiseResponse(projDao.retrieve(Number(req.params.project_id)), res);
+  else res.send({id:0});
 });
 
 /**
@@ -90,6 +93,8 @@ router.get('/:project_id', function (req, res, next) {
  */
 router.post('/', (req, res) => {
   console.log(req.body);
+  const date =  new Date(req.body.start_date);
+  req.body.start_date = date.toISOString().slice(0,10);
   promiseResponse(projDao.insert(req.body), res);
 });
 
@@ -141,6 +146,8 @@ router.post('/', (req, res) => {
 
 router.put('/:project_id', (req, res) => {
   console.log(req.params.project_id);
+  const date =  new Date(req.body.start_date);
+  req.body.start_date = date.toISOString().slice(0,10);
   console.log(req.body);
   promiseResponse(projDao.update(Number(req.params.project_id), req.body), res);
 });

@@ -9,7 +9,7 @@ module.exports = {
   },
 
   retrieve: (project_id)=>{
-    return queryPromise(projCrud.load, {project_id: project_id});
+    return queryPromise(projCrud.load, {id: project_id});
   },
 
   insert: (attr)=>{
@@ -17,7 +17,7 @@ module.exports = {
   },
 
   update: (project_id, attr)=>{
-    return queryPromise(projCrud.update, {project_id: project_id}, attr);
+    return updatePromise(projCrud.update, {id: project_id}, attr);
   }
 
 };

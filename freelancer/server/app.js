@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var cors = require('cors');
 
 var index = require('./routes/index');
 var swagger = require('./swagger');
@@ -23,6 +24,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+//cors
+const corsOptions = {
+  credentials: true,
+  origin: true,
+  methods: ['GET', 'PUT', 'POST', 'DELETE']
+};
+
+app.use(cors(corsOptions));
 
 app.use('/', index);
 app.use('/api/docs', swagger);
