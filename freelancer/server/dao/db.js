@@ -8,7 +8,7 @@ exports.cnxPool = mysql.createPool({
   database: 'flc'
 });
 
-exports.selectPromise = (func, where) => {
+exports.queryPromise = (func, where) => {
   return new Promise((resolve, reject) => {
     func(where, (err, val) => {
       if (err) return reject(err);
@@ -16,3 +16,12 @@ exports.selectPromise = (func, where) => {
     })
   })
 };
+
+exports.updatePromise = (func, slct, attr) => {
+  return new Promise((resolve, reject) => {
+    func(slct, attr, (err, val) => {
+      if (err) return reject(err);
+      resolve(val);
+    })
+  })
+}

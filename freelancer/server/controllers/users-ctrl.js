@@ -9,6 +9,8 @@ const bcrypt = require('bcrypt');
  * /users:
  *  get:
  *    description: Retrieve all users
+ *    tags:
+ *       - users
  *    produces:
  *      - application/json
  *    responses:
@@ -27,6 +29,8 @@ router.get('/', (req, res) => {
  * /users/{username}:
  *  get:
  *    description: Retrieve User Info
+ *    tags:
+ *       - users
  *    produces:
  *      - application/json
  *    parameters:
@@ -51,6 +55,8 @@ router.get('/:username', function (req, res, next) {
  * /users:
  *  post:
  *    description: Create a User
+ *    tags:
+ *       - users
  *    produces:
  *      - application/json
  *    parameters:

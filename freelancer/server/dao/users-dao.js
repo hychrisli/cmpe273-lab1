@@ -1,23 +1,23 @@
-const {cnxPool, selectPromise} = require('./db');
+const {cnxPool, queryPromise, updatePromise} = require('./db');
 const Crud = require('mysql-crud');
 const userCrud = Crud(cnxPool, 'USER');
 
 module.exports = {
 
   retrieveAll: () => {
-    return selectPromise(userCrud.load, {});
+    return queryPromise(userCrud.load, {});
   },
 
   retrieve: (username) => {
-    return selectPromise(userCrud.load, {username: username});
+    return queryPromise(userCrud.load, {username: username});
   },
 
   insert: (attr) => {
-    return selectPromise(userCrud.create, attr);
+    return queryPromise(userCrud.create, attr);
   },
 
-  update: (attr) => {
-    return selectPromise(userCrud.update, attr);
+  update: (username, attr) => {
+    return updatePromise(userCrud.update, {username: username}, attr);
   }
 };
 
