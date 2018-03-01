@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {jsonServerRestClient, Admin, Resource} from 'admin-on-rest';
 
+import customRoutes from './routes';
 import Menu from './menu';
 
 
@@ -12,6 +13,7 @@ class App extends Component {
       <Admin // authClient={authClient}
         title={"Freelancer"}
         menu={Menu}
+        customRoutes={customRoutes}
         restClient={jsonServerRestClient('http://localhost:5000/api')}>
         <Resource name='projects'
                   list={ProjList}
