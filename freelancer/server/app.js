@@ -37,7 +37,7 @@ app.use(cors(corsOptions));
 app.use('/', index);
 app.use('/api/docs', swagger);
 app.use('/api/users', users);
-app.use('/api/projs', projs);
+app.use('/api/projects', projs);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

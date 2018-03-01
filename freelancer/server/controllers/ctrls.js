@@ -1,6 +1,7 @@
 exports.promiseResponse = (promise, res) => {
   promise.then((val) => {
-    // console.log(JSON.stringify(val));
+    res.set('X-Total-Count', val.length);
+    res.set('Access-Control-Expose-Headers', 'X-Total-Count');
     res.status(200).send(JSON.stringify(val));
   }).catch((err) => {
     console.log(err);

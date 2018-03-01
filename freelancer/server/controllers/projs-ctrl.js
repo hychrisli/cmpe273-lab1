@@ -5,7 +5,7 @@ const {promiseResponse} = require('./ctrls');
 
 /**
  * @swagger
- * /projs:
+ * /projects:
  *  get:
  *    description: Retrieve all projects
  *    tags:
@@ -23,7 +23,7 @@ router.get('/', (req, res) => {
 
 /**
  * @swagger
- * /projs/{project_id}:
+ * /projects/{project_id}:
  *  get:
  *    description: Retrieve User Info
  *    tags:
@@ -49,7 +49,7 @@ router.get('/:project_id', function (req, res, next) {
 
 /**
  * @swagger
- * /projs:
+ * /projects:
  *  post:
  *    description: Create a new project
  *    tags:
@@ -101,7 +101,7 @@ router.post('/', (req, res) => {
 
 /**
  * @swagger
- * /projs/{project_id}:
+ * /projects/{project_id}:
  *  put:
  *    description: update a project
  *    tags:
