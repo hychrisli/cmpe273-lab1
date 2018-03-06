@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const projDao = require('../dao/projs-dao');
-const {promiseResponse} = require('./ctrls');
+const {promiseGetResponse, promisePostResponse} = require('./ctrls');
 
 /**
  * @swagger
@@ -17,7 +17,7 @@ const {promiseResponse} = require('./ctrls');
  *        description: projects
  */
 router.get('/', (req, res) => {
-  promiseResponse(projDao.retrieveAll(), res);
+  promiseGetResponse(projDao.retrieveAll(), res, 200);
 });
 
 
@@ -43,7 +43,7 @@ router.get('/', (req, res) => {
 router.get('/:project_id', function (req, res, next) {
   const project_id = req.params.project_id;
   if ( project_id !== undefined )
-    promiseResponse(projDao.retrieve(Number(req.params.project_id)), res);
+    promiseGetResponse(projDao.retrieve(Number(req.params.project_id)), res, 200);
   else res.send({id:0});
 });
 
@@ -95,7 +95,7 @@ router.post('/', (req, res) => {
   console.log(req.body);
   const date =  new Date(req.body.start_date);
   req.body.start_date = date.toISOString().slice(0,10);
-  promiseResponse(projDao.insert(req.body), res);
+  promisePostResponse(projDao.insert(req.body), req, res, 201);
 });
 
 
@@ -149,7 +149,7 @@ router.put('/:project_id', (req, res) => {
   const date =  new Date(req.body.start_date);
   req.body.start_date = date.toISOString().slice(0,10);
   console.log(req.body);
-  promiseResponse(projDao.update(Number(req.params.project_id), req.body), res);
+  promisePostResponse(projDao.update(Number(req.params.project_id), req.body), req, res, 200);
 });
 
 module.exports = router;

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const userDao = require('../dao/users-dao');
-const {promiseResponse} = require('./ctrls');
+const {promiseGetResponse, promisePostResponse} = require('./ctrls');
 const bcrypt = require('bcrypt');
 
 /**
@@ -20,7 +20,7 @@ const bcrypt = require('bcrypt');
  *          $ref: '#/definitions/Users'
  */
 router.get('/', (req, res) => {
-  promiseResponse(userDao.retrieveAll(), res);
+  promiseGetResponse(userDao.retrieveAll(), res, 200);
 });
 
 
@@ -46,7 +46,7 @@ router.get('/', (req, res) => {
  *          $ref: '#/definitions/User'
  */
 router.get('/:username', function (req, res, next) {
-  promiseResponse(userDao.retrieve(req.params.username), res);
+  promiseGetResponse(userDao.retrieve(req.params.username), res, 200);
 });
 
 
@@ -84,7 +84,7 @@ router.post('/', function (req, res, next) {
   console.log(form);
   console.log(form.password);
   form.password = bcrypt.hashSync(form.password, 10);
-  promiseResponse(userDao.insert(form), res);
+  promisePostResponse(userDao.insert(form), req, res, 201);
 });
 
 /**
@@ -118,7 +118,7 @@ router.post('/login', function (req, res, next) {
     if (val.length > 0) {
       console.log(val);
       if(bcrypt.compareSync(req.body.password, val[0].password)){
-        return res.send({login: "success"});
+        return res.send({login: "success", username: username});
       }
       else res.status(400).send({login: "wrong password"});
     }
