@@ -1,29 +1,18 @@
-import React, {Component} from 'react';
-import {jsonServerRestClient, Admin, Resource} from 'admin-on-rest';
+import React from 'react';
+import logo from './logo.svg';
+import './App.css';
 
-import customRoutes from './routes';
-import Menu from './menu';
+const App = (props) => (
 
-
-import {ProjList, ProjEdit, ProjCreate, ProjShow} from './projects';
-
-class App extends Component {
-  render() {
-    return (
-      <Admin // authClient={authClient}
-        title={"Freelancer"}
-        menu={Menu}
-        customRoutes={customRoutes}
-        restClient={jsonServerRestClient('http://localhost:5000/api')}>
-        <Resource name='projects'
-                  list={ProjList}
-                  show={ProjShow}
-                  edit={ProjEdit}
-                  create={ProjCreate}/>
-        <Resource name="profile"/>
-      </Admin>
+      <div className="App">
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <h1 className="App-title">React Redux Homework</h1>
+        </header>
+        <section className="App-body">
+          {props.children}
+        </section>
+      </div>
     );
-  }
-}
 
 export default App;

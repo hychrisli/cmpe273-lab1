@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS USER (
   username VARCHAR(20) PRIMARY KEY,
   first_name VARCHAR(20),
   last_name VARCHAR(20),
-  password VARCHAfR(100) NOT NULL,
+  password VARCHAR(100) NOT NULL,
   email VARCHAR(20) NOT NULL UNIQUE,
   image VARCHAR(20),
   about_me VARCHAR(200)
