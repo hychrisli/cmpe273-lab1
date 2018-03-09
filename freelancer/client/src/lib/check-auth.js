@@ -6,7 +6,7 @@ import {Redirect} from 'react-router-dom'
 export function checkIndexAuthorization({dispatch}){
   return () => {
     if (checkAuthorization(dispatch)) {
-      return <Redirect to={"/profile"}/>;
+      return <Redirect to={"/dashboard"}/>;
     }
     return <Redirect to={"/login"}/>;
   }
@@ -15,9 +15,9 @@ export function checkIndexAuthorization({dispatch}){
 export function checkWidgetAuthorization({dispatch, getState}){
   return ()=>{
     const client = getState().client;
-    if ( client && client.token) return <Redirect to={"/profile"}/>;
+    if ( client && client.token) return <Redirect to={"/dashboard"}/>;
 
-    if(checkAuthorization(dispatch)) return <Redirect to={"/profile"}/>;
+    if(checkAuthorization(dispatch)) return <Redirect to={"/dashboard"}/>;
 
     return <Redirect to={"/login"}/>;
   }

@@ -58,7 +58,7 @@ function* loginFlow(username, password){
     yield put(setClient("abc"));
     yield put({type: LOGIN_SUCCESS});
     localStorage.setItem('token', JSON.stringify(token));
-    history.push('/profile')
+    history.push('/dashboard')
   } catch(error) {
     yield put({type: LOGIN_ERROR, error})
   } finally {

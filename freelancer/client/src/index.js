@@ -9,7 +9,7 @@ import App from './App';
 import Login from './login';
 import Signup from './signup';
 import Widgets from './widgets';
-import Profile from './profile';
+import Dashboard from './dashboard'
 import history from './history';
 import Logout from './logout';
 import './index.css';
@@ -49,7 +49,7 @@ ReactDOM.render(
           <Route exact path={"/"} render={checkIndexAuthorization(store)}/>
           <Route path={"/login"} component={Login}/>
           <Route path={"/signup"} component={Signup}/>
-          <Route path={"/profile"} render={checkWidgetAuthorization(store)} component={Profile}/>
+          <Route path={"/dashboard"} render={checkWidgetAuthorization(store)} component={Dashboard}/>
         </Switch>
       </App>
     </Router>
