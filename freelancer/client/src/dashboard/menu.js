@@ -1,5 +1,5 @@
 import React from 'react';
-import { translate, DashboardMenuItem, MenuItemLink } from 'admin-on-rest';
+import {DashboardMenuItem, MenuItemLink } from 'admin-on-rest';
 
 const styles = {
   main: {
@@ -27,5 +27,6 @@ const Menu = ({onMenuTap, translate, logout}) => (
     {logout}
   </div>
 );
+
 
 export default Menu;

@@ -1,5 +1,5 @@
 import {call, put, takeLatest } from 'redux-saga/effects'
-import {handleApiErrors} from '../lib/api-errors'
+import {handleApiErrors} from '../../lib/api-errors'
 import {
   PROFILE_UPDATING,
   PROFILE_UPDATE_ERROR,

@@ -1,7 +1,12 @@
 import React, {Component} from 'react';
 import {jsonServerRestClient, Admin, Resource} from 'admin-on-rest';
+import customRoutes from './routes';
+import IndexReducer from '../index-reducer'
+import IndexSaga from '../index-saga'
 
-//import customRoutes from './routes';
+import profile from './profile/reducer'
+import account from './profile/account'
+
 import Menu from './menu';
 
 
@@ -11,16 +16,18 @@ class Dashboard extends Component {
   render() {
     return (
       <Admin // authClient={authClient}
-        title={"Freelancer"}
+        customReducers={{profile, account}}
+        customSagas={[IndexSaga]}
         menu={Menu}
-        /*customRoutes={customRoutes}*/
+        title={"Freelancer"}
+        customRoutes={customRoutes}
         restClient={jsonServerRestClient(`${process.env.REACT_APP_API_URL}`)}>
         <Resource name='projects'
                   list={ProjList}
                   show={ProjShow}
                   edit={ProjEdit}
                   create={ProjCreate}/>
-        /*<Resource name="profile"/>*/
+        <Resource name={"profile"}/>
       </Admin>
     );
   }
