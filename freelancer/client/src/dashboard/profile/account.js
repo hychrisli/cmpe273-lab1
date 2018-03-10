@@ -1,7 +1,6 @@
 import {
   PROFILE_GETTING,
-  PROFILE_GET_SUCCESS,
-  PROFILE_GET_ERROR
+  PROFILE_GET_SUCCESS
 } from './constants'
 
 const reducer = (state={}, action) => {

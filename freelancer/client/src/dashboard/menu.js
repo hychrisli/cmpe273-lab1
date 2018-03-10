@@ -1,5 +1,6 @@
 import React from 'react';
-import {DashboardMenuItem, MenuItemLink } from 'admin-on-rest';
+import { connect } from 'react-redux';
+import {DashboardMenuItem, MenuItemLink, getResources } from 'admin-on-rest';
 import Logout from './logout'
 
 const styles = {
@@ -16,18 +17,20 @@ const Menu = ({onMenuTap, translate, logout}) => (
   <div style={styles.main}>
     <DashboardMenuItem onClick={onMenuTap} />
     <MenuItemLink
-      key={"projects"}
-      to={`projects`}
+      to={"/projects"}
+      replace
       primaryText={"Projects"}
       onClick={onMenuTap}/>
     <MenuItemLink
-      key={"profile"}
-      to={`profile`}
+      to={"/profile"}
       primaryText={"Profile"}
       onClick={onMenuTap}/>
     <Logout/>
   </div>
 );
 
+const mapStateToProps = state => ({
+  resources: getResources(state),
+});
+export default connect(mapStateToProps)(Menu);
 
-export default Menu;

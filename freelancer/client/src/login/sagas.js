@@ -4,7 +4,7 @@ import {
   cancel,
   call,
   put,
-  cancelled
+  cancelled,
 } from "redux-saga/effects";
 
 import history from '../history'
@@ -27,7 +27,7 @@ import {
   CLIENT_UNSET
 } from "../client/constants"
 
-const loginUrl = `${process.env.REACT_APP_API_URL}/users/login`
+const loginUrl = `${process.env.REACT_APP_API_URL}/users/login`;
 
 
 function loginApi(username, password){
@@ -60,7 +60,7 @@ function* loginFlow(username, password){
     localStorage.setItem('token', JSON.stringify(token));
     history.push('/dashboard')
   } catch(error) {
-    yield put({type: LOGIN_ERROR, error})
+    yield put({type: LOGIN_ERROR, error});
   } finally {
     if ( yield cancelled()) {
       history.push('/login')
@@ -78,7 +78,7 @@ function* loginWatcher(){
     const task = yield fork(loginFlow, username, password);
     const action = yield take([CLIENT_UNSET, LOGIN_ERROR]);
     if (action.type === CLIENT_UNSET) yield cancel(task);
-    yield call(logout)
+    yield call(logout);
   }
 }
 

@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {jsonServerRestClient, Admin, Resource} from 'admin-on-rest';
 import customRoutes from './routes';
-import IndexReducer from '../index-reducer'
 import IndexSaga from '../index-saga'
 
 import profile from './profile/reducer'
@@ -11,7 +10,6 @@ import Menu from './menu';
 
 
 import {ProjList, ProjEdit, ProjCreate, ProjShow} from './projects';
-import {connect} from "react-redux";
 
 class Dashboard extends Component {
   render() {

@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
-import {reduxForm, Field, Password} from 'redux-form'
+import {reduxForm, Field} from 'redux-form'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 
 import Messages from '../../notifications/messages'
 import Errors from '../../notifications/errors'
-import Logout from '../logout/index'
 
 import {profileUpdate, profileGet} from "./actions";
 

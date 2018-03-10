@@ -28,14 +28,14 @@ function* signupFlow(action){
   try{
     const {email, username, password} = action;
     const response = yield call(signupApi, email, username,  password);
-    yield put({type: SIGNUP_SUCCESS, response})
+    yield put({type: SIGNUP_SUCCESS, response});
   } catch(error){
-    yield put({type: SIGNUP_ERROR, error})
+    yield put({type: SIGNUP_ERROR, error});
   }
 }
 
 function* signupWatcher() {
-  yield takeLatest(SIGNUP_REQUESTING, signupFlow)
+  yield takeLatest(SIGNUP_REQUESTING, signupFlow);
 }
 
 export default signupWatcher;

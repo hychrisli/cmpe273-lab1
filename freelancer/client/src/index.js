@@ -3,15 +3,12 @@ import ReactDOM from 'react-dom';
 import {applyMiddleware, createStore, compose} from 'redux';
 import {Provider} from 'react-redux';
 import createSageMiddleware from 'redux-saga'
-import {Route, Router, Switch, Link} from 'react-router-dom';
+import {Route, Router, Switch} from 'react-router-dom';
 
 import App from './App';
 import Login from './login';
 import Signup from './signup';
-import Dashboard from './dashboard'
 import history from './history';
-import Profile from "./dashboard/profile";
-import Logout from './dashboard/logout';
 import './index.css';
 
 import IndexReducer from './index-reducer';
@@ -35,7 +32,7 @@ window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
 /*eslint-enable */
 
 // redux store
-const store = createStore(
+export const store = createStore(
   IndexReducer,
   composeSetup(applyMiddleware(sagaMiddleware)),
 );

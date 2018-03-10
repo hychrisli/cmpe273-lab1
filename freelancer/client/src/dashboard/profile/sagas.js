@@ -57,9 +57,9 @@ function* pUpdFlow(action){
     console.log(body);
 
     const response = yield call(pUpdApi, username, body);
-    yield put({type: PROFILE_UPDATE_SUCCESS, response})
+    yield put({type: PROFILE_UPDATE_SUCCESS, response});
   } catch(error){
-    yield put({type: PROFILE_UPDATE_ERROR, error})
+    yield put({type: PROFILE_UPDATE_ERROR, error});
   }
 }
 
@@ -70,16 +70,16 @@ function* pGetFlow(action) {
     console.log(response);
     yield put({type: PROFILE_GET_SUCCESS, response});
   } catch(error) {
-    yield put({type: PROFILE_GET_ERROR, error})
+    yield put({type: PROFILE_GET_ERROR, error});
   }
 }
 
 export function* pUpdWatcher() {
-  yield takeLatest(PROFILE_UPDATING, pUpdFlow)
+  yield takeLatest(PROFILE_UPDATING, pUpdFlow);
 }
 
 
 export  function* pGetWatcher() {
-  yield takeLatest(PROFILE_GETTING, pGetFlow)
+  yield takeLatest(PROFILE_GETTING, pGetFlow);
 }
 
