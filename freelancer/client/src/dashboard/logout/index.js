@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from "prop-types";
 
-import {unsetClient} from '../client/actions'
+import {unsetClient} from '../../client/actions'
 import {connect} from "react-redux";
 import {reduxForm} from "redux-form";
 

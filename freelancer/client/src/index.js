@@ -11,7 +11,7 @@ import Signup from './signup';
 import Dashboard from './dashboard'
 import history from './history';
 import Profile from "./dashboard/profile";
-import Logout from './logout';
+import Logout from './dashboard/logout';
 import './index.css';
 
 import IndexReducer from './index-reducer';
@@ -50,8 +50,7 @@ ReactDOM.render(
           <Route exact path={"/"} render={checkIndexAuthorization(store)}/>
           <Route path={"/login"} component={Login}/>
           <Route path={"/signup"} component={Signup}/>
-          <Route path={"/dashboard"} render={checkWidgetAuthorization(store)} component={Dashboard}/>
-          <Route path={"/profile"} component={Profile}/>
+          <Route path={"/dashboard"} render={checkWidgetAuthorization(store)}/>
         </Switch>
       </App>
     </Router>

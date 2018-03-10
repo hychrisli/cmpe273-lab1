@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 
 import Messages from '../../notifications/messages'
 import Errors from '../../notifications/errors'
-import Logout from '../../logout/index'
+import Logout from '../logout/index'
 
 import {profileUpdate, profileGet} from "./actions";
 
@@ -61,7 +61,6 @@ class Profile extends Component{
 
     return (
       <div className={"profile"}>
-        /*<Logout/>*/
         <form className="widget-form" onSubmit={handleSubmit(this.submit)}>
           <h1>Profile</h1>
           <label htmlFor={'username'}>Username: {this.state.username}</label>

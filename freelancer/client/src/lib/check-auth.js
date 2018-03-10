@@ -1,6 +1,7 @@
 import React from 'react'
 import {setClient} from '../client/actions'
-import {Redirect} from 'react-router-dom'
+import {Route, Redirect} from 'react-router-dom'
+import Dashboard from "../dashboard";
 
 
 export function checkIndexAuthorization({dispatch}){
@@ -15,9 +16,11 @@ export function checkIndexAuthorization({dispatch}){
 export function checkWidgetAuthorization({dispatch, getState}){
   return ()=>{
     const client = getState().client;
-    if ( client && client.token) return <Redirect to={"/dashboard"}/>;
+    console.log("client");
+    console.log(client);
+    if ( client && client.token) return <Route path={"/dashboard"} component={Dashboard}/>;
 
-    if(checkAuthorization(dispatch)) return <Redirect to={"/dashboard"}/>;
+    if(checkAuthorization(dispatch)) return <Route path={"/dashboard"} component={Dashboard}/>;
 
     return <Redirect to={"/login"}/>;
   }
@@ -25,6 +28,8 @@ export function checkWidgetAuthorization({dispatch, getState}){
 
 function checkAuthorization(dispatch){
   const storedToken = localStorage.getItem('token');
+  console.log("storedToken");
+  console.log(storedToken);
 
   if ( storedToken ) {
     const token = JSON.parse(storedToken);

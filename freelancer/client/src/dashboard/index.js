@@ -11,6 +11,7 @@ import Menu from './menu';
 
 
 import {ProjList, ProjEdit, ProjCreate, ProjShow} from './projects';
+import {connect} from "react-redux";
 
 class Dashboard extends Component {
   render() {

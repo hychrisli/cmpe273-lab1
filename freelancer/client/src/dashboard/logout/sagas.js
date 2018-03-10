@@ -1,6 +1,6 @@
-import {CLIENT_UNSET} from '../client/constants'
+import {CLIENT_UNSET} from '../../client/constants'
 
-import history from "../history";
+import history from "../../history";
 import {takeLatest} from "redux-saga/effects";
 
 function* logout(){

@@ -1,7 +1,7 @@
 import SignupSaga from './signup/sagas'
 import LoginSaga from './login/sagas'
 import {pUpdWatcher, pGetWatcher} from './dashboard/profile/sagas'
-import LogoutSaga from './logout/sagas'
+import LogoutSaga from './dashboard/logout/sagas'
 
 
 export default function* IndexSage(){

@@ -1,5 +1,6 @@
 import React from 'react';
 import {DashboardMenuItem, MenuItemLink } from 'admin-on-rest';
+import Logout from './logout'
 
 const styles = {
   main: {
@@ -24,7 +25,7 @@ const Menu = ({onMenuTap, translate, logout}) => (
       to={`profile`}
       primaryText={"Profile"}
       onClick={onMenuTap}/>
-    {logout}
+    <Logout/>
   </div>
 );
 
