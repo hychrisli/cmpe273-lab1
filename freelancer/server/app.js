@@ -4,12 +4,14 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var cors = require('cors');
+const cors = require('cors');
+const fileUpload = require('express-fileupload');
 
 var index = require('./routes/index');
 var swagger = require('./swagger');
 var users = require('./controllers/users-ctrl');
 var projs = require('./controllers/projs-ctrl');
+var file = require('./controllers/file-ctrl');
 
 var app = express();
 
@@ -24,6 +26,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(fileUpload());
 
 //cors
 const corsOptions = {
@@ -38,6 +41,8 @@ app.use('/', index);
 app.use('/api/docs', swagger);
 app.use('/api/users', users);
 app.use('/api/projects', projs);
+app.use('/api/file', file);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
