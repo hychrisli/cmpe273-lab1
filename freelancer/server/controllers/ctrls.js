@@ -19,6 +19,18 @@ exports.promisePostResponse = (promise, req, res, status) => {
   })
 };
 
+
+exports.promisePutNotice = (promise, message, res, status) => {
+  promise.then(()=>{
+    res = addHeader(res, message);
+    res.status(status).send(JSON.stringify(message))
+  }).catch((err) => {
+    console.log(err);
+    res.status(500).send(err);
+  })
+};
+
+
 function addHeader (res, val){
   res.set('X-Total-Count', val.length);
   res.set('Access-Control-Expose-Headers', 'X-Total-Count');
