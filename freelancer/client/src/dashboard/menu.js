@@ -18,7 +18,6 @@ const Menu = ({onMenuTap, translate, logout}) => (
     <DashboardMenuItem onClick={onMenuTap} />
     <MenuItemLink
       to={"/projects"}
-      replace
       primaryText={"Projects"}
       onClick={onMenuTap}/>
     <MenuItemLink

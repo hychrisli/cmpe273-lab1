@@ -8,6 +8,17 @@ exports.promiseGetResponse = (promise, res, status) => {
   });
 };
 
+exports.promiseGetOneResponse = (promise, res, status)=>{
+  promise.then((val) => {
+    if ( val.length < 1 ){
+      res.status(400).send("Not Found");
+    }
+    else{
+      res = addHeader(res, val[0]);
+      res.status(status).send(JSON.stringify(val[0]));
+    }
+  })
+};
 
 exports.promisePostResponse = (promise, req, res, status) => {
   promise.then(() => {

@@ -6,7 +6,7 @@ import createSageMiddleware from 'redux-saga'
 import {Route, Router, Switch} from 'react-router-dom';
 
 import App from './App';
-import Login from './login';
+
 import Signup from './signup';
 import history from './history';
 import './index.css';
@@ -17,12 +17,12 @@ import IndexSagas from './index-saga';
 import {
   checkIndexAuthorization,
   checkWidgetAuthorization,
+  checkLoginAuthorization
 } from './lib/check-auth'
 
 
 //Set up middleware
 const sagaMiddleware = createSageMiddleware();
-
 
 /*eslint-disable */
 /*To use the redux devtool*/
@@ -38,14 +38,13 @@ export const store = createStore(
 );
 sagaMiddleware.run(IndexSagas);
 
-
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
       <App>
         <Switch>
           <Route exact path={"/"} render={checkIndexAuthorization(store)}/>
-          <Route path={"/login"} component={Login}/>
+          <Route path={"/login"} render={checkLoginAuthorization(store)}/>
           <Route path={"/signup"} component={Signup}/>
           <Route path={"/dashboard"} render={checkWidgetAuthorization(store)}/>
         </Switch>

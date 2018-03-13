@@ -24,4 +24,4 @@ exports.updatePromise = (func, slct, attr) => {
       resolve(val);
     })
   })
-}
+};

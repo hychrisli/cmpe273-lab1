@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const projDao = require('../dao/projs-dao');
-const {promiseGetResponse, promisePostResponse} = require('./ctrls');
+const {promiseGetResponse, promisePostResponse, promiseGetOneResponse} = require('./ctrls');
 
 /**
  * @swagger
@@ -43,7 +43,7 @@ router.get('/', (req, res) => {
 router.get('/:project_id', function (req, res, next) {
   const project_id = req.params.project_id;
   if ( project_id !== undefined )
-    promiseGetResponse(projDao.retrieve(Number(req.params.project_id)), res, 200);
+    promiseGetOneResponse(projDao.retrieve(Number(req.params.project_id)), res, 200);
   else res.send({id:0});
 });
 
