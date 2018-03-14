@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS USER (
   last_name VARCHAR(20),
   password VARCHAR(100) NOT NULL,
   email VARCHAR(20) NOT NULL UNIQUE,
-  image VARCHAR(20),
+  image VARCHAR(50),
   about_me VARCHAR(200)
 );
 
@@ -59,5 +59,6 @@ CREATE TABLE IF NOT EXISTS PROJECT_BID(
   bid_price DECIMAL NOT NULL,
   bid_days INTEGER NOT NULL,
   FOREIGN KEY (project_id) REFERENCES PROJECT(id),
-  FOREIGN KEY (username) REFERENCES USER(username)
+  FOREIGN KEY (username) REFERENCES USER(username),
+  UNIQUE `project_bid_uidx` (project_id, username)
 );

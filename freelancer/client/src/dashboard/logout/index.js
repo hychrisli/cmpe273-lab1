@@ -21,17 +21,13 @@ class Logout extends Component {
     } = this.props;
 
     return (
-      <div className={"logout"}>
-        <form onSubmit={handleSubmit(this.submit)}>
-          <button type="submit">Log Out</button>
-        </form>
-      </div>
+      <button className={"logout"} type="submit" onClick={this.submit}>Log Out</button>
     )
   }
 }
 
 const mapStateToProps = state => ({
-  logout: state.logout
+  client: state.client
 });
 
 

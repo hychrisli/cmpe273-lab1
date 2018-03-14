@@ -7,11 +7,11 @@ const {promisePutNotice} = require('./ctrls');
 
 /**
  * @swagger
- * /file/image/{username}:
+ * /files/image/{username}:
  *  post:
  *    description: upload image for user
  *    tags:
- *       - file
+ *       - files
  *    produces:
  *      - multipart/form-data
  *    parameters:
@@ -46,11 +46,11 @@ router.post('/image/:username', (req, res) =>{
 
 /**
  * @swagger
- * /file/image/{username}:
+ * /files/image/{username}:
  *  get:
  *    description: download image for user
  *    tags:
- *       - file
+ *       - files
  *    consumes:
  *      - image/png
  *    parameters:

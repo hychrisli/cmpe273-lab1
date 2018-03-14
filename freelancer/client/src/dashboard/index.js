@@ -21,6 +21,7 @@ class Dashboard extends Component {
         <Admin // authClient={authClient}
           customReducers={{profile, account, client}}
           customSagas={[IndexSaga]}
+          logoutButton={Logout}
           menu={Menu}
           title={"Freelancer"}
           customRoutes={customRoutes}

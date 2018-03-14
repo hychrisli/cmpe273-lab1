@@ -2,6 +2,7 @@ import React from 'react';
 import {List, Datagrid, TextField, ShowButton} from 'admin-on-rest';
 import {Edit, SimpleForm, TextInput, LongTextInput, EditButton} from 'admin-on-rest';
 import {Create, DateInput, Show, SimpleShowLayout, DateField, NumberField} from 'admin-on-rest';
+import BidButton from '../bid-button/index'
 
 export const ProjList = (props) => (
   <List title="Projects" {...props}>
@@ -9,7 +10,7 @@ export const ProjList = (props) => (
       <TextField source="title"/>
       <TextField source="description"/>
       <TextField source="employer"/>
-      <EditButton/>
+      <BidButton/>
       <ShowButton/>
     </Datagrid>
   </List>

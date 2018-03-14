@@ -24,7 +24,7 @@ const Menu = ({onMenuTap, translate, logout}) => (
       to={"/profile"}
       primaryText={"Profile"}
       onClick={onMenuTap}/>
-    <Logout/>
+    {logout}
   </div>
 );
 
