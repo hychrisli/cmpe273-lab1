@@ -9,9 +9,9 @@ import Errors from '../../notifications/errors'
 
 import {profileUpdate} from "./actions";
 
-class Profile extends Component{
+class Profile extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       username: "",
@@ -21,12 +21,12 @@ class Profile extends Component{
   static propTypes = {
     handleSubmit: PropTypes.func,
     profileUpdate: PropTypes.func,
-    profileGet: PropTypes.func,
     profile: PropTypes.shape({
       updating: PropTypes.bool,
       successful: PropTypes.bool,
       messages: PropTypes.array,
-      errors: PropTypes.array,}),
+      errors: PropTypes.array,
+    }),
     client: PropTypes.shape({
       id: PropTypes.string,
       token: PropTypes.shape({
@@ -39,16 +39,17 @@ class Profile extends Component{
   };
 
   submit = (values) => {
+    values['username'] = this.state.username;
+    console.log(values);
     this.props.profileUpdate(values);
+
   };
 
 
   componentDidMount() {
-    console.log('profile did mount');
-    console.log(this.props.client);
     const {
       client: {
-        token:{
+        token: {
           username,
           email,
           first_name,
@@ -59,7 +60,7 @@ class Profile extends Component{
     } = this.props;
 
     this.props.initialize({
-      email:email,
+      email: email,
       firstName: first_name,
       lastName: last_name,
       aboutMe: about_me
@@ -67,19 +68,6 @@ class Profile extends Component{
 
     this.setState({username})
   }
-
-  renderTextField = ({
-    input, label, defaultValue, meta: {touched, error}, ...custom
-  })=> (
-    <TextField
-      hintText={label}
-      floatingLableText={label}
-      errorText={touched && error}
-      defaultValue={defaultValue}
-      {...input}
-      {...custom}
-    />
-  );
 
   render() {
     const {
@@ -92,46 +80,43 @@ class Profile extends Component{
       },
     } = this.props;
 
-    console.log(this.props.account);
-
     return (
       <div className={"profile"}>
         <form className="widget-form" onSubmit={handleSubmit(this.submit)}>
           <h1>Profile</h1>
-          <label htmlFor={'username'}>Username: {this.state.username}</label>
-          <label htmlFor={"Email"}>Email</label>
-          <Field
-            name={"email"}
-            component={"input"}
-            label={"Email"}
-          />
-          <label htmlFor={"password"}>Password</label>
+          <label>Username: {this.state.username}</label>
+          <label>Password</label>
           <Field
             name={"password"}
+            type={"text"}
             component={"input"}
             label={"password"}
           />
-          <label htmlFor={"FirstName"}>First Name</label>
+          <label>Email</label>
+          <Field
+            name={"email"}
+            type={"text"}
+            component={"input"}
+            label={"Email"}
+          />
+          <label>First Name</label>
           <Field
             name={"firstName"}
+            type={"text"}
             component={"input"}
             label={"FirstName"}
           />
-          <label htmlFor={"LastName"}>Last Name</label>
+          <label>Last Name</label>
           <Field
             name={"lastName"}
             type={"text"}
-            id={"lastName"}
-            className={"lastName"}
             component={"input"}
             label={"LastName"}
           />
-          <label htmlFor={"AboutMe"}>About Me</label>
+          <label>About Me</label>
           <Field
             name={"aboutMe"}
             type={"text"}
-            id={"aboutMe"}
-            className={"aboutMe"}
             component={"input"}
             label={"AboutMe"}
           />
@@ -141,7 +126,7 @@ class Profile extends Component{
           {!updating && !!errors && (
             <Errors message={"Failed to update profile due to: "} errors={errors}/>
           )}
-          {!updating && !!messages.length && ( <Messages messages={messages} />)}
+          {!updating && !!messages.length && (<Messages messages={messages}/>)}
           {!updating && successful && (<div>Profile update successful </div>)}
         </div>
       </div>
@@ -149,7 +134,7 @@ class Profile extends Component{
   }
 }
 
-const mapStateToProps = state =>({
+const mapStateToProps = state => ({
   profile: state.profile,
   client: state.client,
   enableReinitialize: true

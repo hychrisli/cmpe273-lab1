@@ -29,18 +29,17 @@ function pUpdApi(username, body){
 function* pUpdFlow(action){
   try{
     console.log(action);
-    const {email} = action;
-    let token = JSON.parse(localStorage.getItem('token'));
-    const username = token.username;
+    const {values} = action;
+    const username = values.username;
     let body = {};
-    if (email.email !== undefined) body['email'] = email.email;
-    if (email.password !== undefined) body['password'] = email.password;
-    if (email.firstName !== undefined) body['first_name'] = email.firstName;
-    if (email.lastName !== undefined) body['last_name'] = email.lastName;
-    if (email.aboutMe !== undefined) body['about_me'] = email.aboutMe;
+    if (values.email !== undefined) body['email'] = values.email;
+    if (values.password !== undefined) body['password'] = values.password;
+    if (values.firstName !== undefined) body['first_name'] = values.firstName;
+    if (values.lastName !== undefined) body['last_name'] = values.lastName;
+    if (values.aboutMe !== undefined) body['about_me'] = values.aboutMe;
 
     console.log(body);
-    token = yield call(pUpdApi, username, body);
+    const token = yield call(pUpdApi, username, body);
     localStorage.setItem('token', JSON.stringify(token));
     yield put(setClient(token));
     yield put({type: PROFILE_UPDATE_SUCCESS});
