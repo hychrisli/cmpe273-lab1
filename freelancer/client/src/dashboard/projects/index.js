@@ -1,16 +1,29 @@
 import React from 'react';
 import {List, Datagrid, TextField, ShowButton} from 'admin-on-rest';
 import {Edit, SimpleForm, TextInput, LongTextInput} from 'admin-on-rest';
-import {Create, DateInput, Show, SimpleShowLayout, DateField, NumberField} from 'admin-on-rest';
+import {Filter, Create, DateInput, Show, SimpleShowLayout, DateField, NumberField} from 'admin-on-rest';
+import {ListButton, RefreshButton } from 'admin-on-rest';
+import { CardActions } from 'material-ui/Card';
 import BidButton from './bid-button'
+import EditButton from './edit-button'
+
+
+
+const ProjFilter = (props) => (
+  <Filter {...props}>
+    <TextInput label={"Employer"} source={"username"}/>
+  </Filter>
+);
+
 
 export const ProjList = (props) => (
-  <List title="Projects" {...props}>
+  <List title="Projects" {...props} filters={<ProjFilter/>}>
     <Datagrid>
       <TextField source="title"/>
       <TextField source="description"/>
       <TextField source="employer"/>
       <BidButton/>
+      <EditButton/>
       <ShowButton/>
     </Datagrid>
   </List>
@@ -42,8 +55,23 @@ export const ProjCreate = (props) => (
   </Create>
 );
 
+const cardActionStyle = {
+  zIndex: 2,
+  display: 'inline-block',
+  float: 'right',
+};
+
+
+const ProjShowActions = ({basePath, data}) => (
+  <CardActions style={cardActionStyle}>
+    <ListButton basePath={basePath} />
+    <RefreshButton />
+  </CardActions>
+);
+
+
 export const ProjShow = (props) => (
-  <Show title={<ProjTitle/>} {...props}>
+  <Show actions={<ProjShowActions/>} title={<ProjTitle/>} {...props}>
     <SimpleShowLayout>
       <TextField source={"title"}/>
       <TextField source={"description"}/>

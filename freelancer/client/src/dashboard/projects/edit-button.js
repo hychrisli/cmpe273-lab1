@@ -4,26 +4,30 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push as pushAction } from 'react-router-redux';
 
-class BidButton extends Component{
+class EditButton extends Component{
 
   static propTypes = {
     push: PropTypes.func,
     record: PropTypes.object,
-    client: PropTypes.object,
+    client: PropTypes.object
   };
 
   handleClick =  () => {
-    this.props.push("/bids/create");
+    this.props.push("/projects/" + this.props.record.id);
   };
 
   render() {
+
     const {
       record,
       client:{
-        token
+        token,
       }
     } = this.props;
-    return <FlatButton label={"Bid"} disabled={record.employer === token.username} onClick={this.handleClick}/>
+
+    console.log(record);
+
+    return <FlatButton label={"Edit"} disabled={record.employer !== token.username} onClick={this.handleClick}/>
   }
 }
 
@@ -33,4 +37,4 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps, {
   push: pushAction,
-})(BidButton);
+})(EditButton);
