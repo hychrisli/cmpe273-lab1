@@ -4,8 +4,8 @@ const projCrud = Crud(cnxPool, 'PROJECT');
 
 module.exports = {
 
-  retrieveAll: ()=>{
-    return queryPromise(projCrud.load, {});
+  retrieveAll: (filter)=>{
+    return queryPromise(projCrud.load, filter);
   },
 
   retrieve: (project_id)=>{

@@ -11,7 +11,7 @@ import EditButton from './edit-button'
 
 const ProjFilter = (props) => (
   <Filter {...props}>
-    <TextInput label={"Employer"} source={"username"}/>
+    <TextInput label={"Employer"} source={"employer"}/>
   </Filter>
 );
 

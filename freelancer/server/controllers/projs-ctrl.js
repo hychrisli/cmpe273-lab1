@@ -12,12 +12,25 @@ const {promiseGetResponse, promisePostResponse, promiseGetOneResponse} = require
  *       - projects
  *    produces:
  *      - application/json
+ *    parameters:
+ *      - name: employer
+ *        in : query
+ *        required: false
+ *        type: string
+ *        description: retrieve projects as employer
  *    responses:
  *      200:
  *        description: projects
  */
 router.get('/', (req, res) => {
-  promiseGetResponse(projDao.retrieveAll(), res, 200);
+  const employer = req.query.employer;
+  let filter = {};
+  if (employer !== undefined){
+    console.log(employer);
+    filter['employer'] = employer;
+  }
+
+  promiseGetResponse(projDao.retrieveAll(filter), res, 200);
 });
 
 
@@ -92,7 +105,6 @@ router.get('/:project_id', function (req, res, next) {
  *        description: project created
  */
 router.post('/', (req, res) => {
-  console.log(req.body);
   const date =  new Date(req.body.start_date);
   req.body.start_date = date.toISOString().slice(0,10);
   promisePostResponse(projDao.insert(req.body), req, res, 201);
