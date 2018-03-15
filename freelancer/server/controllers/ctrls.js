@@ -8,6 +8,23 @@ exports.promiseGetResponse = (promise, res, status) => {
   });
 };
 
+exports.promiseGetPagedResponse = (promiseCount, promiseGet, res, status) => {
+  promiseCount.then((val) => {
+    res.set('X-Total-Count', val[0].cnt);
+    res.set('Access-Control-Expose-Headers', 'X-Total-Count');
+    promiseGet.then((val) => {
+      res.status(status).send(JSON.stringify(val));
+    }).catch(err => {
+      console.log(err);
+      res.status(500).send(err);
+    });
+  }).catch((err) => {
+    console.log(err);
+    res.status(500).send(err);
+  });
+};
+
+
 exports.promiseGetOneResponse = (promise, res, status)=>{
   promise.then((val) => {
     if ( val.length < 1 ){
@@ -49,6 +66,15 @@ exports.promisePutNotice = (promise, message, res, status) => {
   })
 };
 
+exports.paginate = (req) => {
+  let pagin = {};
+  if ( req.query._start !== undefined && req.query._end !== undefined){
+    const start = Number(req.query._start);
+    pagin['offset'] = start;
+    pagin['limit'] = Number(req.query._end) - start;
+  }
+  return pagin;
+};
 
 function addHeader (res, val){
   res.set('X-Total-Count', val.length);

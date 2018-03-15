@@ -1,4 +1,4 @@
-const {cnxPool, queryPromise, updatePromise} = require('./db');
+const {cnxPool, queryPromise, updatePromise, insertPromise} = require('./db');
 const Crud = require('mysql-crud');
 const userCrud = Crud(cnxPool, 'USER');
 
@@ -13,7 +13,7 @@ module.exports = {
   },
 
   insert: (attr) => {
-    return queryPromise(userCrud.create, attr);
+    return insertPromise(userCrud.create, attr);
   },
 
   update: (username, attr) => {

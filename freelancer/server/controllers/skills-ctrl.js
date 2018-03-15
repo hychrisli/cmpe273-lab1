@@ -1,7 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const skillDao = require('../dao/skills-dao');
-const {promiseGetResponse, promisePostResponse, promiseGetOneResponse} = require('./ctrls');
+const {
+  promiseGetResponse,
+  promisePostResponse,
+  promiseGetOneResponse,
+  promiseGetPagedResponse,
+  paginate} = require('./ctrls');
 
 /**
  * @swagger
@@ -12,12 +17,24 @@ const {promiseGetResponse, promisePostResponse, promiseGetOneResponse} = require
  *       - skills
  *    produces:
  *      - application/json
+ *    parameters:
+ *      - name: _start
+ *        in : query
+ *        required: false
+ *        type: number
+ *        description: pagination start
+ *      - name: _end
+ *        in: query
+ *        required: false
+ *        type: number
+ *        description: pagination end
  *    responses:
  *      200:
  *        description: projects
  */
 router.get('/', (req, res) => {
-  promiseGetResponse(skillDao.retrieveAll(), res, 200);
+  const pagin = paginate(req);
+  promiseGetPagedResponse(skillDao.count(), skillDao.retrieveAll(pagin), res, 200);
 });
 
 

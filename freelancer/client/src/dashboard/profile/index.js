@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {reduxForm, Field} from 'redux-form'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
-import TextField from 'material-ui/TextField'
 
 import Messages from '../../notifications/messages'
 import Errors from '../../notifications/errors'

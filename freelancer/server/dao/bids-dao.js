@@ -1,4 +1,4 @@
-const {cnxPool, queryPromise, updatePromise} = require('./db');
+const {cnxPool, queryPromise, updatePromise, insertPromise} = require('./db');
 const Crud = require('mysql-crud');
 const projBidCrud = Crud(cnxPool, 'PROJECT_BID');
 
@@ -13,7 +13,7 @@ module.exports = {
   },
 
   insertBid: (attr)=>{
-    return queryPromise(projBidCrud.create, attr);
+    return insertPromise(projBidCrud.create, attr);
   },
 
   updateBid: (bid_id, attr)=>{

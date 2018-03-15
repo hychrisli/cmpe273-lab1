@@ -13,6 +13,10 @@ VALUES ('Project 2', 'Hello hello project 2', 'abc', 400.0, 600.0, STR_TO_DATE('
 INSERT INTO PROJECT (title, description, employer, min_budget, max_budget, start_date)
 VALUES ('Project 3', 'Here again project 3', 'xyz', 500.0, 800.0, STR_TO_DATE('02/12/2018', '%m/%d/%Y'));
 
+INSERT INTO PROJECT_BID(username, project_id, bid_price, bid_days)
+    VALUES('abc', 3, 600, 80), ('xyz', 1, 350, 60);
+
+
 INSERT INTO SKILL (skill_name)
 VALUES ('Java'), ('Python'), ('Node.js'), ('Express.js'), ('React'), ('HTML5'), ('AngularJS'), ('MySQL'),
   ('Oracle'), ('Spring'), ('JUnit'), ('Spark'), ('Hadoop'), ('Kafka'), ('AWS'), ('GCP'), ('PHP'), ('Apache'),

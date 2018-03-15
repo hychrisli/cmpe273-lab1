@@ -11,7 +11,8 @@ import client from '../client/reducer'
 
 import Menu from './menu';
 import {ProjList, ProjEdit, ProjCreate, ProjShow} from './projects';
-import {BidList, BidCreate} from './bids'
+import {BidList, BidCreate} from './bids';
+import {SkillList, SkillCreate} from './skills';
 import {connect} from "react-redux";
 
 class Dashboard extends Component {
@@ -56,6 +57,10 @@ class Dashboard extends Component {
           <Resource name={'bids'}
                     list={BidList}
                     create={BidCreate}
+          />
+          <Resource name={'skills'}
+                    list={SkillList}
+                    create={SkillCreate}
           />
           <Resource name={"profile"}/>
         </Admin>

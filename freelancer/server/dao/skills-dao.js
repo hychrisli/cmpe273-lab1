@@ -1,11 +1,15 @@
-const {cnxPool, queryPromise} = require('./db');
+const {cnxPool, queryPromise, insertPromise, countPromise} = require('./db');
 const Crud = require('mysql-crud');
 const skillCrud = Crud(cnxPool, 'SKILL');
 
 module.exports = {
 
-  retrieveAll: ()=>{
-    return queryPromise(skillCrud.load, {});
+  count: () => {
+    return countPromise('SKILL');
+  },
+
+  retrieveAll: (pagin)=>{
+    return queryPromise(skillCrud.load, {}, pagin);
   },
 
   retrieve: (skill_id)=>{
@@ -13,6 +17,6 @@ module.exports = {
   },
 
   insert: (attr)=>{
-    return queryPromise(skillCrud.create, attr);
+    return insertPromise(skillCrud.create, attr);
   },
 };

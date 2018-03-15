@@ -25,6 +25,10 @@ const Menu = ({onMenuTap, translate, logout}) => (
       primaryText={"Bids"}
       onClick={onMenuTap}/>
     <MenuItemLink
+      to={"/skills"}
+      primaryText={"Skills"}
+      onClick={onMenuTap}/>
+    <MenuItemLink
       to={"/profile"}
       primaryText={"Profile"}
       onClick={onMenuTap}/>
