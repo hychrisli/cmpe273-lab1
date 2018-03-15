@@ -2,16 +2,17 @@ import React, {Component} from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { push as pushAction } from 'react-router-redux';
 
 class BidButton extends Component{
 
-  propTypes = {
-   record: PropTypes.object,
+  static propTypes = {
+    push: PropTypes.func,
+    record: PropTypes.object,
   };
 
   handleClick =  () => {
-    console.log("Clicked");
-    console.log(this.props.record)
+    this.props.push("/bids/create");
   };
 
   render() {
@@ -19,6 +20,6 @@ class BidButton extends Component{
   }
 }
 
-
-
-export default BidButton;
+export default connect(null, {
+  push: pushAction,
+})(BidButton);

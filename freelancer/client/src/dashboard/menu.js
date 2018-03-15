@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {DashboardMenuItem, MenuItemLink, getResources } from 'admin-on-rest';
-import Logout from './logout'
+
 
 const styles = {
   main: {
@@ -19,6 +19,10 @@ const Menu = ({onMenuTap, translate, logout}) => (
     <MenuItemLink
       to={"/projects"}
       primaryText={"Projects"}
+      onClick={onMenuTap}/>
+    <MenuItemLink
+      to={"/bids"}
+      primaryText={"Bids"}
       onClick={onMenuTap}/>
     <MenuItemLink
       to={"/profile"}

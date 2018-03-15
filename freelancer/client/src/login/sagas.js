@@ -55,10 +55,10 @@ function* loginFlow(username, password){
 
   try{
     token = yield call(loginApi, username, password);
-    yield put(setClient("abc"));
+    yield put(setClient(token));
     yield put({type: LOGIN_SUCCESS});
     localStorage.setItem('token', JSON.stringify(token));
-    history.push('/dashboard')
+    history.push('/dashboard');
   } catch(error) {
     yield put({type: LOGIN_ERROR, error});
   } finally {
@@ -66,9 +66,7 @@ function* loginFlow(username, password){
       history.push('/login')
     }
   }
-
-  return token
-
+  return token;
 }
 
 function* loginWatcher(){

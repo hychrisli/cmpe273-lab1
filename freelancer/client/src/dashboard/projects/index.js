@@ -1,8 +1,8 @@
 import React from 'react';
 import {List, Datagrid, TextField, ShowButton} from 'admin-on-rest';
-import {Edit, SimpleForm, TextInput, LongTextInput, EditButton} from 'admin-on-rest';
+import {Edit, SimpleForm, TextInput, LongTextInput} from 'admin-on-rest';
 import {Create, DateInput, Show, SimpleShowLayout, DateField, NumberField} from 'admin-on-rest';
-import BidButton from '../bid-button/index'
+import BidButton from './bid-button'
 
 export const ProjList = (props) => (
   <List title="Projects" {...props}>

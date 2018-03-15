@@ -1,4 +1,4 @@
-import {PROFILE_UPDATING, PROFILE_GETTING} from "./constants";
+import {PROFILE_UPDATING} from "./constants";
 
 export const profileUpdate = (email, password, firstName, lastName, aboutMe) => ({
   type: PROFILE_UPDATING,
@@ -7,10 +7,4 @@ export const profileUpdate = (email, password, firstName, lastName, aboutMe) => 
   firstName,
   lastName,
   aboutMe
-});
-
-
-export const profileGet = (username) => ({
-  type: PROFILE_GETTING,
-  username,
 });

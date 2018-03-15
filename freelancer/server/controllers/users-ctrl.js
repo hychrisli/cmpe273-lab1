@@ -1,7 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const userDao = require('../dao/users-dao');
-const {promiseGetResponse, promisePostResponse} = require('./ctrls');
+const {
+  promiseGetResponse,
+  promisePostResponse,
+  promiseGetOneResponse,
+  promisePutOneResponse
+} = require('./ctrls');
 const bcrypt = require('bcrypt');
 
 /**
@@ -46,7 +51,7 @@ router.get('/', (req, res) => {
  *          $ref: '#/definitions/User'
  */
 router.get('/:username', function (req, res, next) {
-  promiseGetResponse(userDao.retrieve(req.params.username), res, 200);
+  promiseGetOneResponse(userDao.retrieve(req.params.username), res, 200);
 });
 
 
@@ -118,7 +123,7 @@ router.post('/login', function (req, res, next) {
     if (val.length > 0) {
       console.log(val);
       if(bcrypt.compareSync(req.body.password, val[0].password)){
-        return res.send({login: "success", username: username});
+        return res.send(val[0]);
       }
       else res.status(400).send({login: "wrong password"});
     }
@@ -173,12 +178,14 @@ router.post('/login', function (req, res, next) {
  */
 router.put('/:username', function (req, res, next) {
   console.log(req.body);
+  const username = req.params.username
   let form = req.body;
+
   if (form.password !== undefined)
     form.password = bcrypt.hashSync(form.password, 10);
-  promisePostResponse(userDao.update(req.params.username, form), req, res, 200);
+  promisePutOneResponse(
+    userDao.update(username, form),
+    userDao.retrieve(username), res, 200);
 });
-
-
 
 module.exports = router;

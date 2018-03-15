@@ -18,10 +18,7 @@ export function checkLoginAuthorization({dispatch, getState}) {
   return ()=>{
 
     const client = getState().client;
-    console.log(client);
     if ( client && client.token) return <Redirect to={"/dashboard"}/>;
-
-    console.log('here check');
     if(checkAuthorization(dispatch)) return <Redirect to={"/dashboard"}/>;
 
     console.log("Load login");
@@ -29,13 +26,20 @@ export function checkLoginAuthorization({dispatch, getState}) {
   }
 }
 
-
 export function checkWidgetAuthorization({dispatch, getState}){
   return ()=>{
     const client = getState().client;
-    if ( client && client.token) return <Route path={"/dashboard"} component={Dashboard}/>;
 
-    if(checkAuthorization(dispatch)) return <Route path={"/dashboard"} component={Dashboard}/>;
+    if ( client && client.token) {
+      console.log("dispatch 1");
+      console.log(client);
+      return <Route path={"/dashboard"} component={Dashboard}/>;
+    }
+
+    if(checkAuthorization(dispatch)) {
+      console.log("dispatch 2");
+      return <Route path={"/dashboard"} component={Dashboard}/>;
+    }
 
     return <Redirect to={"/login"}/>;
   }
@@ -48,14 +52,6 @@ function checkAuthorization(dispatch){
 
   if ( storedToken ) {
     const token = JSON.parse(storedToken);
-
-    const createdDate = new Date(token.created);
-    const created = Math.round(createdDate.getTime() / 1000);
-    const ttl = 1209600;
-    const expiry = created + ttl;
-
-    if (created > expiry) return false;
-
     dispatch(setClient(token));
     return true
   }

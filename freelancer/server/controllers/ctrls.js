@@ -30,6 +30,14 @@ exports.promisePostResponse = (promise, req, res, status) => {
   })
 };
 
+exports.promisePutOneResponse = (putPromise, getPromise, res, status) => {
+  putPromise.then(() => {
+    this.promiseGetOneResponse(getPromise, res, status);
+  }).catch((err) => {
+    console.log(err);
+    res.status(500).send(err);
+  })
+};
 
 exports.promisePutNotice = (promise, message, res, status) => {
   promise.then(()=>{

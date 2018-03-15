@@ -2,11 +2,12 @@ import React, {Component} from 'react';
 import {reduxForm, Field} from 'redux-form'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
+import TextField from 'material-ui/TextField'
 
 import Messages from '../../notifications/messages'
 import Errors from '../../notifications/errors'
 
-import {profileUpdate, profileGet} from "./actions";
+import {profileUpdate} from "./actions";
 
 class Profile extends Component{
 
@@ -26,24 +27,59 @@ class Profile extends Component{
       successful: PropTypes.bool,
       messages: PropTypes.array,
       errors: PropTypes.array,}),
-    account: PropTypes.shape({
-      email: PropTypes.string,
-      firstName: PropTypes.string,
-      lastName: PropTypes.string,
-      aboutMe: PropTypes.string
+    client: PropTypes.shape({
+      id: PropTypes.string,
+      token: PropTypes.shape({
+        email: PropTypes.string,
+        firstName: PropTypes.string,
+        lastName: PropTypes.string,
+        aboutMe: PropTypes.string
+      })
     })
   };
 
   submit = (values) => {
     this.props.profileUpdate(values);
-    this.props.profileGet(this.state.username);
   };
 
-  componentWillMount() {
-    const token = JSON.parse(localStorage.getItem('token'));
-    this.props.profileGet(token.username);
-    this.setState({username: token.username})
+
+  componentDidMount() {
+    console.log('profile did mount');
+    console.log(this.props.client);
+    const {
+      client: {
+        token:{
+          username,
+          email,
+          first_name,
+          last_name,
+          about_me
+        }
+      }
+    } = this.props;
+
+    this.props.initialize({
+      email:email,
+      firstName: first_name,
+      lastName: last_name,
+      aboutMe: about_me
+    });
+
+    this.setState({username})
   }
+
+  renderTextField = ({
+    input, label, defaultValue, meta: {touched, error}, ...custom
+  })=> (
+    <TextField
+      hintText={label}
+      floatingLableText={label}
+      errorText={touched && error}
+      defaultValue={defaultValue}
+      {...input}
+      {...custom}
+    />
+  );
 
   render() {
     const {
@@ -63,34 +99,25 @@ class Profile extends Component{
         <form className="widget-form" onSubmit={handleSubmit(this.submit)}>
           <h1>Profile</h1>
           <label htmlFor={'username'}>Username: {this.state.username}</label>
-          <label htmlFor={"email"}>Email: {this.props.account.email}</label>
+          <label htmlFor={"Email"}>Email</label>
           <Field
             name={"email"}
-            type={"text"}
-            id={"email"}
-            className={"email"}
             component={"input"}
-            label={"email"}
+            label={"Email"}
           />
           <label htmlFor={"password"}>Password</label>
           <Field
             name={"password"}
-            type={"password"}
-            id={"password"}
-            className={"password"}
             component={"input"}
             label={"password"}
           />
-          <label htmlFor={"FirstName"}>First Name: {this.props.account.firstName}</label>
+          <label htmlFor={"FirstName"}>First Name</label>
           <Field
             name={"firstName"}
-            type={"text"}
-            id={"firstName"}
-            className={"firstName"}
             component={"input"}
             label={"FirstName"}
           />
-          <label htmlFor={"LastName"}>Last Name: {this.props.account.lastName}</label>
+          <label htmlFor={"LastName"}>Last Name</label>
           <Field
             name={"lastName"}
             type={"text"}
@@ -99,7 +126,7 @@ class Profile extends Component{
             component={"input"}
             label={"LastName"}
           />
-          <label htmlFor={"AboutMe"}>About Me: {this.props.account.aboutMe}</label>
+          <label htmlFor={"AboutMe"}>About Me</label>
           <Field
             name={"aboutMe"}
             type={"text"}
@@ -124,12 +151,12 @@ class Profile extends Component{
 
 const mapStateToProps = state =>({
   profile: state.profile,
-  account: state.account,
+  client: state.client,
   enableReinitialize: true
 });
 
 
-const connected = connect(mapStateToProps, {profileUpdate,profileGet})(Profile);
+const connected = connect(mapStateToProps, {profileUpdate})(Profile);
 
 
 const formed = reduxForm({

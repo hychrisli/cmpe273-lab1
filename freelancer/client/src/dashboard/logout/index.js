@@ -16,10 +16,6 @@ class Logout extends Component {
   };
 
   render() {
-    const {
-      handleSubmit,
-    } = this.props;
-
     return (
       <button className={"logout"} type="submit" onClick={this.submit}>Log Out</button>
     )
