@@ -67,7 +67,7 @@ const ProjShowActions = ({basePath, data}) => (
   <CardActions style={cardActionStyle}>
     <ListButton basePath={basePath} />
     <RefreshButton />
-    <SkillsButton/>
+    <SkillsButton record={data}/>
   </CardActions>
 );
 

@@ -8,14 +8,11 @@ class SkillsButton extends Component{
 
   static propTypes = {
     push: PropTypes.func,
-    project: PropTypes.object,
-    client: PropTypes.object
   };
 
   handleClick =  () => {
-    console.log("skills");
-    console.log(this.props.project);
-    this.props.push('/proj-skills?filter={"project_id"%3A"1"}&order=DESC&page=1&perPage=10&sort=id');
+    console.log(this.props.record);
+    this.props.push('/proj-skills?filter={"project_id"%3A"'+ this.props.record.id +'"}&order=DESC&page=1&perPage=10&sort=id');
   };
 
   render() {
@@ -23,11 +20,6 @@ class SkillsButton extends Component{
   }
 }
 
-const mapStateToProps = state => ({
-  client: state.client,
-  project: state.project,
-});
-
-export default connect(mapStateToProps, {
+export default connect(null, {
   push: pushAction,
 })(SkillsButton);
