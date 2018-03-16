@@ -8,11 +8,13 @@ import Logout from './logout'
 
 import profile from './profile/reducer'
 import client from '../client/reducer'
+import project from './projects/reducer'
 
 import Menu from './menu';
 import {ProjList, ProjEdit, ProjCreate, ProjShow} from './projects';
 import {BidList, BidCreate} from './bids';
 import {SkillList, SkillCreate} from './skills';
+import {ProjSkillList} from './proj-skills'
 import {connect} from "react-redux";
 
 class Dashboard extends Component {
@@ -41,7 +43,7 @@ class Dashboard extends Component {
       <div>
         <Logout/>
         <Admin // authClient={authClient}
-          customReducers={{profile, client}}
+          customReducers={{profile, client, project}}
           customSagas={[IndexSaga]}
           menu={Menu}
           initialState={{'client': this.props.client}}
@@ -61,6 +63,9 @@ class Dashboard extends Component {
           <Resource name={'skills'}
                     list={SkillList}
                     create={SkillCreate}
+          />
+          <Resource name={'proj-skills'}
+                    list={ProjSkillList}
           />
           <Resource name={"profile"}/>
         </Admin>

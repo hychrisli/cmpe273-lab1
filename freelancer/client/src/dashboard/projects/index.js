@@ -1,11 +1,13 @@
 import React from 'react';
-import {List, Datagrid, TextField, ShowButton} from 'admin-on-rest';
+import {List, Datagrid, TextField} from 'admin-on-rest';
 import {Edit, SimpleForm, TextInput, LongTextInput} from 'admin-on-rest';
 import {Filter, Create, DateInput, Show, SimpleShowLayout, DateField, NumberField} from 'admin-on-rest';
 import {ListButton, RefreshButton } from 'admin-on-rest';
 import { CardActions } from 'material-ui/Card';
-import BidButton from './bid-button'
-import EditButton from './edit-button'
+import BidButton from './button-bid'
+import EditButton from './button-edit'
+import SkillsButton from './button-skills'
+import ShowButton from './button-show'
 
 
 
@@ -14,7 +16,6 @@ const ProjFilter = (props) => (
     <TextInput label={"Employer"} source={"employer"}/>
   </Filter>
 );
-
 
 export const ProjList = (props) => (
   <List title="Projects" {...props} filters={<ProjFilter/>}>
@@ -66,12 +67,14 @@ const ProjShowActions = ({basePath, data}) => (
   <CardActions style={cardActionStyle}>
     <ListButton basePath={basePath} />
     <RefreshButton />
+    <SkillsButton/>
   </CardActions>
 );
 
 
-export const ProjShow = (props) => (
-  <Show actions={<ProjShowActions/>} title={<ProjTitle/>} {...props}>
+export const ProjShow = (props) => {
+  return (
+  <Show {...props} actions={<ProjShowActions/>} title={<ProjTitle/>} >
     <SimpleShowLayout>
       <TextField source={"title"}/>
       <TextField source={"description"}/>
@@ -81,4 +84,4 @@ export const ProjShow = (props) => (
       <DateField source={"start_date"}/>
     </SimpleShowLayout>
   </Show>
-);
+)};

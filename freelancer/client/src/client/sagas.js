@@ -4,7 +4,6 @@ import history from "../history";
 import {takeLatest} from "redux-saga/effects";
 
 function* unset(){
-  console.log('Unsetting');
   yield localStorage.removeItem('token');
   history.push('/login');
 }
