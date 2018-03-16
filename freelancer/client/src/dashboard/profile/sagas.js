@@ -5,8 +5,8 @@ import {
   PROFILE_UPDATE_ERROR,
   PROFILE_UPDATE_SUCCESS,
 } from "./constants";
-import {setClient} from "../../client/actions";
 
+import {setClient} from "../../client/actions";
 const profileUrl = `${process.env.REACT_APP_API_URL}/users`;
 
 

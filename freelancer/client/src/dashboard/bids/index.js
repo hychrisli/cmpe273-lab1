@@ -17,13 +17,4 @@ export const BidList = (props) => (
   </List>
 );
 
-export const BidCreate = (props) => (
-  <Create {...props} >
-    <SimpleForm>
-      <DisabledInput label={"Bidder"} source={"username"}/>
-      <TextInput source="project_id"/>
-      <NumberInput source="bid_price"/>
-      <NumberInput source="bid_days"/>
-    </SimpleForm>
-  </Create>
-);
+export const

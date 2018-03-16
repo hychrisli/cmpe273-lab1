@@ -5,6 +5,7 @@ import signup from './signup/reducer'
 import login from './login/reducer'
 import profile from './dashboard/profile/reducer'
 import project from './dashboard/projects/reducer'
+import bid from './dashboard/bid/reducer'
 
 const IndexReducer = combineReducers({
   form,
@@ -12,6 +13,7 @@ const IndexReducer = combineReducers({
   signup,
   login,
   profile,
-  project
+  project,
+  bid
 });
 export default IndexReducer;

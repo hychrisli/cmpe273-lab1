@@ -1,6 +1,6 @@
 import React from 'react';
 import {List, Datagrid, TextField, ShowButton} from 'admin-on-rest';
-import {Edit, SimpleForm, TextInput, LongTextInput} from 'admin-on-rest';
+import {Edit, SimpleForm, TextInput, LongTextInput, NumberInput} from 'admin-on-rest';
 import {Filter, Create, DateInput, Show, SimpleShowLayout, DateField, NumberField} from 'admin-on-rest';
 import {ListButton, RefreshButton } from 'admin-on-rest';
 import { CardActions } from 'material-ui/Card';
@@ -44,10 +44,10 @@ export const ProjCreate = (props) => (
   <Create {...props}>
     <SimpleForm>
       <TextInput source="title"/>
-      <LongTextInput source="description"/>
+      <TextInput source="description"/>
       <TextInput source="employer"/>
-      <NumberField source="min_budget"/>
-      <NumberField source="max_budget"/>
+      <NumberInput source="min_budget"/>
+      <NumberInput source="max_budget"/>
       <DateInput source="start_date"/>
     </SimpleForm>
   </Create>

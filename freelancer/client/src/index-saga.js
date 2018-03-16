@@ -2,6 +2,7 @@ import SignupSaga from './signup/sagas'
 import LoginSaga from './login/sagas'
 import profileSaga from './dashboard/profile/sagas'
 import ClientSaga from './client/sagas'
+import BidSaga from './dashboard/bid/sagas'
 
 
 export default function* IndexSage(){
@@ -9,6 +10,7 @@ export default function* IndexSage(){
     SignupSaga(),
     LoginSaga(),
     profileSaga(),
-    ClientSaga()
+    ClientSaga(),
+    BidSaga()
   ]
 }

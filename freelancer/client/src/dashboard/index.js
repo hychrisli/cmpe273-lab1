@@ -4,11 +4,13 @@ import PropTypes from 'prop-types'
 
 import customRoutes from './routes';
 import IndexSaga from '../index-saga'
+import BidSaga from  './bid/sagas';
 import Logout from './logout'
 
 import profile from './profile/reducer'
 import client from '../client/reducer'
 import project from './projects/reducer'
+import bid from './bid/reducer'
 
 import Menu from './menu';
 import {ProjList, ProjEdit, ProjCreate, ProjShow} from './projects';
@@ -43,7 +45,7 @@ class Dashboard extends Component {
       <div>
         <Logout/>
         <Admin // authClient={authClient}
-          customReducers={{profile, client, project}}
+          customReducers={{profile, client, project, bid}}
           customSagas={[IndexSaga]}
           menu={Menu}
           initialState={{'client': this.props.client}}
