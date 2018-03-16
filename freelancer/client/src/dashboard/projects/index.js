@@ -7,7 +7,7 @@ import { CardActions } from 'material-ui/Card';
 import BidButton from './button-bid'
 import EditButton from './button-edit'
 import SkillsButton from './button-skills'
-import {getUsername} from '../../lib/get-info'
+import {getUsername} from '../lib/get-info'
 
 const ProjFilter = (props) => (
   <Filter {...props}>
@@ -36,7 +36,11 @@ export const ProjEdit = (props) => (
   <Edit title={<ProjTitle/>} {...props}>
     <SimpleForm>
       <TextInput source="title"/>
-      <LongTextInput source="description"/>
+      <TextInput source="title"/>
+      <TextInput source="description"/>
+      <NumberInput source="min_budget"/>
+      <NumberInput source="max_budget"/>
+      <DateInput source="start_date"/>
     </SimpleForm>
   </Edit>
 );
@@ -80,6 +84,7 @@ export const ProjShow = (props) => {
       <TextField source={"min_budget"}/>
       <TextField source={"max_budget"}/>
       <DateField source={"start_date"}/>
+      <TextField source={"chosen_bid"}/>
     </SimpleShowLayout>
   </Show>
 )};

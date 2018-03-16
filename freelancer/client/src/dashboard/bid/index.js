@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 import {reduxForm, Field} from 'redux-form'
 import {connect} from 'react-redux'
+import { push as pushAction } from 'react-router-redux';
 import PropTypes from 'prop-types'
 
 import Messages from '../../notifications/messages'
 import Errors from '../../notifications/errors'
 import {bidProject} from './actions'
+import {renderField, required, number, maxValue, minValue} from '../lib/validate'
 
 class BidCreate extends Component {
 
@@ -42,51 +44,51 @@ class BidCreate extends Component {
   render() {
     const {
       handleSubmit,
-      project: {title},
+      submitting,
+      project: {title, max_budget, min_budget},
       bid: {
         bidding,
         successful,
         messages,
         errors
-      }
+      },
     } = this.props;
+
+    const minPrice = minValue(min_budget);
+    const maxPrice = maxValue(max_budget);
 
     return (
       <div className={"bid"}>
         <form className="widget-form"  onSubmit={handleSubmit(this.submit)}>
           <h1>Bidding</h1>
           <h3>Project: {title} </h3>
-          <label>Username</label>
           <Field
             name={"username"}
             type={"text"}
             component={"input"}
-            label={"username"}
+            label={"Username"}
             disabled={true}
           />
-          <label>Project ID</label>
           <Field
             name={"projectId"}
             type={"text"}
             component={"input"}
-            label={"projectId"}
+            label={"Project ID"}
             disabled={true}
           />
-          <label>Bid Price</label>
           <Field
             name={"bidPrice"}
             type={"number"}
-            component={"input"}
-            label={"bidPrice"}
+            component={renderField}
+            label={"Bid Price: $" + min_budget + " ~ $" + max_budget}
           />
-          <label>Bid Days</label>
           <Field
             name={"bidDays"}
             type={"number"}
-            component={"input"}
-            label={"bidDays"}
+            component={renderField}
+            label={"Bid Days"}
           />
-          <button type="submit">Bid</button>
+          <button type="submit" disabled={submitting}>Bid</button>
         </form>
         <div className={"auth-messages"}>
           {!bidding && !!errors.length && (
@@ -109,8 +111,7 @@ const mapStateToProps = state => ({
   enableReinitialize: true
 });
 
-
-const connected = connect(mapStateToProps, {bidProject})(BidCreate);
+const connected = connect(mapStateToProps, {bidProject, push: pushAction})(BidCreate);
 
 const formed = reduxForm({
   form: 'bid',

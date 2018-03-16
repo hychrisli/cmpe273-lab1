@@ -162,6 +162,6 @@ router.put('/:project_id', (req, res) => {
   req.body.start_date = date.toISOString().slice(0,10);
   console.log(req.body);
   promisePostResponse(projDao.update(Number(req.params.project_id), req.body), req, res, 200);
-});
+})
 
 module.exports = router;

@@ -4,9 +4,8 @@ import { connect } from 'react-redux';
 import { push as pushAction } from 'react-router-redux';
 import { showNotification as showNotificationAction } from 'admin-on-rest';
 import FlatButton from 'material-ui/FlatButton';
-import {handleApiErrors} from "../../lib/api-errors";
 
-class DelButton extends Component{
+class HireButton extends Component{
 
   constructor(props){
     super(props);
@@ -33,7 +32,8 @@ class DelButton extends Component{
       .then(response => response.json())
       .then(json=>{
         if ( json.chosen_bid === record.id)
-          this.setState({isChosen:true})
+          this.setState({isChosen:true});
+        this.setState({employer: json.employer});
       })
       .catch( e => {
         console.error(e);
@@ -44,34 +44,36 @@ class DelButton extends Component{
     const{push, record, showNotification} = this.props;
 
     if (this.state.isChosen){
-      showNotification('Cannot Delete Chosen Bid')
+      showNotification('Someone is already hired');
     } else {
-      const url = `${process.env.REACT_APP_API_URL}/bids/`+record.id;
+      const url = `${process.env.REACT_APP_API_URL}/hire/` + record.project_id;
       fetch(url, {
-        method:'DELETE'
+        method:'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({'chosen_bid': record.id})
       })
         .then(() => {
-          showNotification('Bid Deleted');
-          push('/projects');
+          showNotification('Hired!');
+          push('/projects/' + record.project_id + '/show');
         })
         .catch((e) => {
           console.error(e);
-          showNotification('Failed to delete');
+          showNotification('Failed to Hire');
         })
     }
   };
 
   render() {
     const {
-      basePath,
-      record,
-      resource,
       client:{
         token
       }
     } = this.props;
 
-    return <FlatButton label={"Delete"} disabled={token.username !== record.username} onClick={this.handleClick}/>
+    const isDisabled = this.state.isChosen || this.state.employer !== token.username;
+    return <FlatButton label={"Hire"} disabled={isDisabled} onClick={this.handleClick}/>
   }
 }
 
@@ -82,4 +84,4 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
   showNotification: showNotificationAction,
   push: pushAction
-})(DelButton);
+})(HireButton);
