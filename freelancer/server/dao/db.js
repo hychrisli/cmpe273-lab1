@@ -44,3 +44,12 @@ exports.updatePromise = (func, slct, attr) => {
     })
   })
 };
+
+exports.deletePromise = (func, where) => {
+  return new Promise((resolve, reject) => {
+    func(where, (err, val) => {
+      if (err) return reject(err);
+      resolve(val);
+    })
+  })
+};

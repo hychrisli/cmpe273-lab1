@@ -1,7 +1,8 @@
 import React from 'react';
-import {TextField, ReferenceField} from 'admin-on-rest';
+import {TextField, ReferenceField, DeleteButton} from 'admin-on-rest';
 import {TextInput,NumberInput, DisabledInput} from 'admin-on-rest';
 import {List, Create, SimpleForm, Datagrid} from 'admin-on-rest';
+import DelButton from './button-delete'
 
 export const BidList = (props) => (
   <List title="Bids" {...props}>
@@ -13,8 +14,7 @@ export const BidList = (props) => (
       <TextField label={"Bidder"} source={"username"}/>
       <TextField source={"bid_price"}/>
       <TextField source={"bid_days"}/>
+      <DelButton/>
     </Datagrid>
   </List>
 );
-
-export const

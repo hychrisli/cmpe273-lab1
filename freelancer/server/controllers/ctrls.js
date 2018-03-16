@@ -56,6 +56,17 @@ exports.promisePutOneResponse = (putPromise, getPromise, res, status) => {
   })
 };
 
+
+exports.promiseDeleteNotice = (promise, message, res, status) => {
+  promise.then(()=>{
+    res = addHeader(res, message);
+    res.status(status).send(JSON.stringify(message))
+  }).catch((err) => {
+    console.log(err);
+    res.status(500).send(err);
+  })
+};
+
 exports.promisePutNotice = (promise, message, res, status) => {
   promise.then(()=>{
     res = addHeader(res, message);

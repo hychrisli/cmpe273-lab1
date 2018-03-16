@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {jsonServerRestClient, Admin, Resource} from 'admin-on-rest';
+import {jsonServerRestClient, Admin, Resource, Delete} from 'admin-on-rest';
 import PropTypes from 'prop-types'
 
 import customRoutes from './routes';
@@ -60,6 +60,7 @@ class Dashboard extends Component {
           />
           <Resource name={'bids'}
                     list={BidList}
+                    remove={Delete}
           />
           <Resource name={'skills'}
                     list={SkillList}

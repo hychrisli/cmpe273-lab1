@@ -1,9 +1,8 @@
 import {call, put, takeLatest} from 'redux-saga/effects';
 import {handleApiErrors} from '../../lib/api-errors'
-import {BID_SUCCESS, BIDDING, BID_ERROR} from './constants'
+import {BID_SUCCESS, BIDDING, BID_ERROR} from './constants';
 
 const bidUrl = `${process.env.REACT_APP_API_URL}/bids`;
-
 
 function bidApi(body) {
   return fetch(bidUrl, {
@@ -17,7 +16,6 @@ function bidApi(body) {
     .then(response => response.json())
     .then(json=>json)
     .catch(error => {throw error})
-
 }
 
 function* bidFlow(action) {
@@ -29,10 +27,11 @@ function* bidFlow(action) {
       bid_price: values.bidPrice,
       bid_days: values.bidDays,
     };
-    yield call(bidApi(body));
-    yield put({type: BID_SUCCESS})
+    const response = yield call(bidApi,body);
+    yield put({type: BID_SUCCESS});
   } catch (error) {
-    yield put({type: BID_ERROR})
+    console.log(error);
+    yield put({type: BID_ERROR, error})
   }
 }
 

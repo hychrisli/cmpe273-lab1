@@ -33,7 +33,6 @@ class BidCreate extends Component {
       username: username,
       projectId: id
     });
-
   }
 
   submit =(values) => {
@@ -97,7 +96,6 @@ class BidCreate extends Component {
             <Messages messages={messages}/>
           )}
           {bidding && <div> Bidding...</div>}
-          {!bidding && successful && (<div>Bid successful!</div>)}
         </div>
       </div>
     )

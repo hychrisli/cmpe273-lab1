@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const BidDao = require('../dao/bids-dao');
-const {promiseGetResponse, promisePostResponse, promiseGetOneResponse} = require('./ctrls');
+const {promiseGetResponse, promisePostResponse, promiseGetOneResponse, promiseDeleteNotice} = require('./ctrls');
 
 /**
  * @swagger
@@ -71,12 +71,12 @@ router.get('/:bid_id', function (req, res, next) {
  *        description: bid price for the project
  *        in: formData
  *        required: false
- *        type: string
+ *        type: number
  *      - name: bid_days
  *        description: bid days for the project
  *        in: formData
  *        required: false
- *        type: string
+ *        type: number
  *    responses:
  *      201:
  *        description: bid created
@@ -85,5 +85,34 @@ router.post('/', (req, res) => {
   console.log(req.body);
   promisePostResponse(BidDao.insertBid(req.body), req, res, 201);
 });
+
+/**
+ * @swagger
+ * /bids/{bid_id}:
+ *  delete:
+ *    description: delete a bid
+ *    tags:
+ *       - bids
+ *    produces:
+ *      - application/json
+ *    parameters:
+ *      - name: bid_id
+ *        description: bid ID
+ *        in: path
+ *        required: true
+ *        type: number
+ *    responses:
+ *      200:
+ *        description: a bid
+ */
+router.delete('/:bid_id', function (req, res) {
+  const bid_id = req.params.bid_id;
+  if ( bid_id !== undefined )
+    promiseDeleteNotice(BidDao.deleteBid(Number(bid_id)), "Delete Success", res, 200);
+  else
+    res.status(400).send("Invalid Bid Delete Request");
+});
+
+
 
 module.exports = router;

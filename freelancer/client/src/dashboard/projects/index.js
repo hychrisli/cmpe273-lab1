@@ -7,6 +7,7 @@ import { CardActions } from 'material-ui/Card';
 import BidButton from './button-bid'
 import EditButton from './button-edit'
 import SkillsButton from './button-skills'
+import {getUsername} from '../../lib/get-info'
 
 const ProjFilter = (props) => (
   <Filter {...props}>
@@ -45,7 +46,7 @@ export const ProjCreate = (props) => (
     <SimpleForm>
       <TextInput source="title"/>
       <TextInput source="description"/>
-      <TextInput source="employer"/>
+      <TextInput source="employer" defaultValue={getUsername()}/>
       <NumberInput source="min_budget"/>
       <NumberInput source="max_budget"/>
       <DateInput source="start_date"/>
