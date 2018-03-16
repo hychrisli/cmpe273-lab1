@@ -3,16 +3,19 @@ import FlatButton from 'material-ui/FlatButton';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push as pushAction } from 'react-router-redux';
+import {setProject} from "./actions";
 
 class BidButton extends Component{
 
   static propTypes = {
     push: PropTypes.func,
+    setProject: PropTypes.func,
     record: PropTypes.object,
     client: PropTypes.object,
   };
 
   handleClick =  () => {
+    this.props.setProject(this.props.record);
     this.props.push("/bids/create");
   };
 
@@ -32,5 +35,5 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {
-  push: pushAction,
+  push: pushAction,setProject
 })(BidButton);

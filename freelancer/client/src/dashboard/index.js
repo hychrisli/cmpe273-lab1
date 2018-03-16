@@ -12,7 +12,7 @@ import project from './projects/reducer'
 
 import Menu from './menu';
 import {ProjList, ProjEdit, ProjCreate, ProjShow} from './projects';
-import {BidList, BidCreate} from './bids';
+import {BidList} from './bids';
 import {SkillList, SkillCreate} from './skills';
 import {ProjSkillList} from './proj-skills'
 import {connect} from "react-redux";
@@ -58,7 +58,6 @@ class Dashboard extends Component {
           />
           <Resource name={'bids'}
                     list={BidList}
-                    create={BidCreate}
           />
           <Resource name={'skills'}
                     list={SkillList}

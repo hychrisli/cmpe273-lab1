@@ -1,5 +1,5 @@
 import React from 'react';
-import {List, Datagrid, TextField} from 'admin-on-rest';
+import {List, Datagrid, TextField, ShowButton} from 'admin-on-rest';
 import {Edit, SimpleForm, TextInput, LongTextInput} from 'admin-on-rest';
 import {Filter, Create, DateInput, Show, SimpleShowLayout, DateField, NumberField} from 'admin-on-rest';
 import {ListButton, RefreshButton } from 'admin-on-rest';
@@ -7,9 +7,6 @@ import { CardActions } from 'material-ui/Card';
 import BidButton from './button-bid'
 import EditButton from './button-edit'
 import SkillsButton from './button-skills'
-import ShowButton from './button-show'
-
-
 
 const ProjFilter = (props) => (
   <Filter {...props}>
