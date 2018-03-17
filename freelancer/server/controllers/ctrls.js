@@ -77,6 +77,17 @@ exports.promisePutNotice = (promise, message, res, status) => {
   })
 };
 
+exports.promisePostNotice = (promise, message, res, status) => {
+  promise.then(()=>{
+    res = addHeader(res, message);
+    res.status(status).send(JSON.stringify(message))
+  }).catch((err) => {
+    console.log(err);
+    res.status(500).send(err);
+  })
+};
+
+
 exports.paginate = (req) => {
   let pagin = {};
   if ( req.query._start !== undefined && req.query._end !== undefined){

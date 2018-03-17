@@ -2,16 +2,16 @@ const express = require('express');
 const router = express.Router();
 const userDao = require('../dao/users-dao');
 const fs = require('fs');
-const imageDir = process.env.IMAGE_DIR;
+const imageDir = process.cwd() + process.env.IMAGE_DIR;
 const {promisePutNotice} = require('./ctrls');
 
 /**
  * @swagger
- * /files/image/{username}:
+ * /images/{username}:
  *  post:
  *    description: upload image for user
  *    tags:
- *       - files
+ *       - images
  *    produces:
  *      - multipart/form-data
  *    parameters:
@@ -28,14 +28,13 @@ const {promisePutNotice} = require('./ctrls');
  *      200:
  *        description: upload success
  */
-router.post('/image/:username', (req, res) =>{
+router.post('/:username', (req, res) =>{
   const username = req.params.username;
   if ( !req.files )
     return res.status(400).send('No files were uploaded');
 
   let image = req.files.image;
   let imageName = username + '_' + image.name;
-  console.log(image.name);
 
   image.mv( imageDir + '/' + imageName, (err) => {
     if ( err )
@@ -46,11 +45,11 @@ router.post('/image/:username', (req, res) =>{
 
 /**
  * @swagger
- * /files/image/{username}:
+ * /images/{username}:
  *  get:
  *    description: download image for user
  *    tags:
- *       - files
+ *      - images
  *    consumes:
  *      - image/png
  *    parameters:
@@ -63,7 +62,7 @@ router.post('/image/:username', (req, res) =>{
  *      200:
  *        description: download success
  */
-router.get('/image/:username', (req, res)=> {
+router.get('/:username', (req, res)=> {
   const username = req.params.username;
 
   const promise = userDao.retrieve(username);
