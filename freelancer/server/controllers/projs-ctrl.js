@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const projDao = require('../dao/projs-dao');
+const projSkillDao = require('../dao/proj-skills-dao');
 const {promiseGetResponse, promisePostResponse, promiseGetOneResponse} = require('./ctrls');
 
 /**
@@ -55,9 +56,38 @@ router.get('/', (req, res) => {
  */
 router.get('/:project_id', function (req, res, next) {
   const project_id = req.params.project_id;
-  if ( project_id !== undefined )
-    promiseGetOneResponse(projDao.retrieve(Number(req.params.project_id)), res, 200);
-  else res.send({id:0});
+
+  if (project_id !== undefined) {
+    const projPromise = projDao.retrieve(Number(project_id));
+    const skillPromise = projSkillDao.retrieve({project_id});
+
+    skillPromise.then(skills => {
+
+      let skillSet = [];
+      for ( let i= 0; i < skills.length; i++)
+        skillSet.push(skills[i].skill_id);
+      projPromise.then(projs => {
+        if (projs.length < 1) {
+          res.status(400).send("Not Found");
+        } else {
+          let proj = projs[0];
+          res.set('X-Total-Count', proj.length);
+          res.set('Access-Control-Expose-Headers', 'X-Total-Count');
+          proj['skills'] = skillSet;
+          res.status(200).send(JSON.stringify(proj));
+        }
+      }).catch((err) => {
+        console.log(err);
+        res.status(500).send(err);
+
+      }).catch((err) => {
+        console.log(err);
+        res.status(500).send(err);
+      });
+    });
+  } else {
+    res.status(401).send("Bad Request");
+  }
 });
 
 /**
@@ -160,8 +190,9 @@ router.put('/:project_id', (req, res) => {
   console.log(req.params.project_id);
   const date =  new Date(req.body.start_date);
   req.body.start_date = date.toISOString().slice(0,10);
+  delete req.body['skills'];
   console.log(req.body);
   promisePostResponse(projDao.update(Number(req.params.project_id), req.body), req, res, 200);
-})
+});
 
 module.exports = router;

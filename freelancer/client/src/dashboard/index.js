@@ -1,22 +1,22 @@
 import React, {Component} from 'react';
-import {jsonServerRestClient, Admin, Resource, Delete} from 'admin-on-rest';
+import {jsonServerRestClient, Admin, Resource} from 'admin-on-rest';
 import PropTypes from 'prop-types'
 
 import customRoutes from './routes';
 import IndexSaga from '../index-saga'
-import BidSaga from  './bid/sagas';
 import Logout from './logout'
 
 import profile from './profile/reducer'
 import client from '../client/reducer'
 import project from './projects/reducer'
 import bid from './bid/reducer'
+import skillChoices from './proj-skills/reducer'
 
 import Menu from './menu';
 import {ProjList, ProjEdit, ProjCreate, ProjShow} from './projects';
-import {BidList} from './bids';
+import {BidList, BidShow} from './bids';
 import {SkillList, SkillCreate} from './skills';
-import {ProjSkillList} from './proj-skills'
+import {ProjSkillList, MyProjSkillCreate} from './proj-skills'
 import {connect} from "react-redux";
 
 class Dashboard extends Component {
@@ -45,7 +45,7 @@ class Dashboard extends Component {
       <div>
         <Logout/>
         <Admin // authClient={authClient}
-          customReducers={{profile, client, project, bid}}
+          customReducers={{profile, client, project, bid, skillChoices}}
           customSagas={[IndexSaga]}
           menu={Menu}
           initialState={{'client': this.props.client}}
@@ -60,7 +60,7 @@ class Dashboard extends Component {
           />
           <Resource name={'bids'}
                     list={BidList}
-                    remove={Delete}
+                    show={BidShow}
           />
           <Resource name={'skills'}
                     list={SkillList}
@@ -68,6 +68,7 @@ class Dashboard extends Component {
           />
           <Resource name={'proj-skills'}
                     list={ProjSkillList}
+                    create={MyProjSkillCreate}
           />
           <Resource name={"profile"}/>
         </Admin>

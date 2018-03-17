@@ -8,8 +8,8 @@ module.exports = {
     return countPromise('SKILL');
   },
 
-  retrieveAll: (pagin)=>{
-    return queryPromise(skillCrud.load, {}, pagin);
+  retrieveAll: (pagin, where={})=>{
+    return queryPromise(skillCrud.load, where, pagin);
   },
 
   retrieve: (skill_id)=>{

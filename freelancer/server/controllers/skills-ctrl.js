@@ -28,12 +28,18 @@ const {
  *        required: false
  *        type: number
  *        description: pagination end
+ *      - name: id
+ *        in: query
+ *        required: false
+ *        type: array[number]
+ *        description: refer to skill set
  *    responses:
  *      200:
  *        description: projects
  */
 router.get('/', (req, res) => {
   const pagin = paginate(req);
+  console.log(req.query.id);
   promiseGetPagedResponse(skillDao.count(), skillDao.retrieveAll(pagin), res, 200);
 });
 

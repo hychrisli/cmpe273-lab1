@@ -18,6 +18,38 @@ exports.countPromise = (table) => {
   })
 };
 
+exports.insertIgnoreMultiPromise = (table, attrs, multiAttrName) => {
+
+  let keys = [];
+  let vals = [];
+  for ( let key in attrs ){
+    if ( key !== multiAttrName ){
+      keys.push(key);
+      vals.push(attrs[key]);
+    }
+  }
+  keys.push(multiAttrName);
+  const colStr = '(' + keys.join(',') + ')';
+  const valStr = '(' + vals.join(',');
+  const tuples = [];
+  const multi = attrs[multiAttrName];
+
+  for ( let i =0; i < multi.length; i++){
+    tuples.push(valStr + ',' + multi[i] + ')')
+  }
+
+  const myQuery = 'INSERT IGNORE INTO ' + table + colStr + ' VALUES ' + tuples.join(',');
+  console.log(myQuery);
+
+  return new Promise((resolve, reject) => {
+    this.cnxPool.query(myQuery,
+      (error, results) => {
+        if (error) return reject(error);
+        resolve(results);
+      })
+  })
+};
+
 exports.queryPromise = (func, where, pagin={}) => {
   return new Promise((resolve, reject) => {
     func(where, (err, val) => {

@@ -4,8 +4,6 @@ const reducer = (state={}, action) => {
 
   switch(action.type) {
     case PROJECT_SET:
-      console.log("project set");
-      console.log(action);
       return action.record;
 
     case PROJECT_UNSET:

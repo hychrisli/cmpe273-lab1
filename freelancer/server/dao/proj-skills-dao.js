@@ -1,4 +1,4 @@
-const {cnxPool, queryPromise, insertPromise} = require('./db');
+const {cnxPool, queryPromise, insertIgnoreMultiPromise} = require('./db');
 const Crud = require('mysql-crud');
 const projSkillCrud = Crud(cnxPool, 'PROJECT_SKILL');
 
@@ -8,7 +8,7 @@ module.exports = {
     return queryPromise(projSkillCrud.load, filter);
   },
 
-  insert: (attr)=>{
-    return insertPromise(projSkillCrud.create, attr);
+  insert: (attrs, multiAttrName)=>{
+    return insertIgnoreMultiPromise('PROJECT_SKILL', attrs, multiAttrName);
   },
 };

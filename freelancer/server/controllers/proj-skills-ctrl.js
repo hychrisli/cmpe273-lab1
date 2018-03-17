@@ -56,7 +56,8 @@ router.get('/', (req, res) => {
  *        description: skill added to project
  */
 router.post('/', (req, res) => {
-  promisePostResponse(projSkillDao.insert(req.body), req, res, 201);
+  console.log(req.body);
+  promisePostResponse(projSkillDao.insert(req.body, 'skill_id'), req, res, 201);
 });
 
 module.exports = router;

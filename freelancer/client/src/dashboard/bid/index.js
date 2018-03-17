@@ -7,7 +7,7 @@ import PropTypes from 'prop-types'
 import Messages from '../../notifications/messages'
 import Errors from '../../notifications/errors'
 import {bidProject} from './actions'
-import {renderField, required, number, maxValue, minValue} from '../lib/validate'
+import {renderField} from '../lib/validate'
 
 class BidCreate extends Component {
 
@@ -48,14 +48,10 @@ class BidCreate extends Component {
       project: {title, max_budget, min_budget},
       bid: {
         bidding,
-        successful,
         messages,
         errors
       },
     } = this.props;
-
-    const minPrice = minValue(min_budget);
-    const maxPrice = maxValue(max_budget);
 
     return (
       <div className={"bid"}>

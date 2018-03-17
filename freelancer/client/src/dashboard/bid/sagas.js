@@ -27,7 +27,7 @@ function* bidFlow(action) {
       bid_price: values.bidPrice,
       bid_days: values.bidDays,
     };
-    const response = yield call(bidApi,body);
+    yield call(bidApi,body);
     yield put({type: BID_SUCCESS});
   } catch (error) {
     console.log(error);

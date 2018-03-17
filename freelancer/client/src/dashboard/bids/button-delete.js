@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { push as pushAction } from 'react-router-redux';
 import { showNotification as showNotificationAction } from 'admin-on-rest';
 import FlatButton from 'material-ui/FlatButton';
-import {handleApiErrors} from "../../lib/api-errors";
 
 class DelButton extends Component{
 
@@ -63,9 +62,7 @@ class DelButton extends Component{
 
   render() {
     const {
-      basePath,
       record,
-      resource,
       client:{
         token
       }
