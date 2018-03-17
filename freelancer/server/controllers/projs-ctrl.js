@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const projDao = require('../dao/projs-dao');
 const projSkillDao = require('../dao/proj-skills-dao');
-const {promiseGetResponse, promisePostResponse, promiseGetOneResponse} = require('./ctrls');
+const projFilesDao = require('../dao/proj-files-dao');
+const {promiseGetResponse, promisePostResponse} = require('./ctrls');
 
 /**
  * @swagger
@@ -60,11 +61,43 @@ router.get('/:project_id', function (req, res, next) {
   if (project_id !== undefined) {
     const projPromise = projDao.retrieve(Number(project_id));
     const skillPromise = projSkillDao.retrieve({project_id});
+    const filesPromise = projFilesDao.retrieve({project_id});
 
-    skillPromise.then(skills => {
+    Promise.all([projPromise, skillPromise, filesPromise])
+      .then(results => {
+        const projs = results[0];
+        const skills = results[1];
+        const files = results[2];
+
+        if ( projs.length < 1)
+          res.status(404).send("Not Found");
+        else{
+
+          let skillSet = [];
+          for ( let i = 0; i < skills.length; i++)
+            skillSet.push(skills[i].skill_id);
+
+          let fileSet = [];
+          for ( let i = 0; i < files.length; i++ )
+            fileSet.push(files[i].id);
+
+          let proj = projs[0];
+          res.set('X-Total-Count', proj.length);
+          res.set('Access-Control-Expose-Headers', 'X-Total-Count');
+          proj['skills'] = skillSet;
+          proj['files'] = fileSet;
+          res.status(200).send(JSON.stringify(proj));
+        }
+
+    }).catch(err => {
+      console.log(error);
+      res.status(500).send(err);
+    })
+
+/*    skillPromise.then(skills => {
 
       let skillSet = [];
-      for ( let i= 0; i < skills.length; i++)
+      for (let i = 0; i < skills.length; i++)
         skillSet.push(skills[i].skill_id);
       projPromise.then(projs => {
         if (projs.length < 1) {
@@ -84,9 +117,9 @@ router.get('/:project_id', function (req, res, next) {
         console.log(err);
         res.status(500).send(err);
       });
-    });
+    });*/
   } else {
-    res.status(401).send("Bad Request");
+    res.status(400).send("Bad Request");
   }
 });
 
