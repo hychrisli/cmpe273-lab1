@@ -21,6 +21,7 @@ exports.countPromise = (table, where={}) => {
 };
 
 exports.avgPromise = (table, attr, where={}) => {
+
   const myQuery = 'SELECT avg('+ attr +') avg_price FROM ' + table + genWhereCondition(where);
   console.log(myQuery);
   return new Promise((resolve, reject) => {
@@ -103,6 +104,8 @@ exports.deletePromise = (func, where) => {
 
 function genWhereCondition(where) {
 
+  const isEmpty = Object.keys(where).length === 0 && where.constructor === Object;
+
   const condis = [];
 
   for ( let key in where ){
@@ -110,5 +113,5 @@ function genWhereCondition(where) {
     condis.push(condi);
   }
 
-  return ' WHERE ' + condis.join(' AND ');
+  return isEmpty ? '' : ' WHERE ' + condis.join(' AND ');
 }

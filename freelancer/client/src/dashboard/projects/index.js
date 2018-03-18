@@ -10,6 +10,7 @@ import EditButton from './button-edit'
 import SkillsButton from './button-skills'
 import AddSkillButton from '../proj-skills/button-add-skill';
 import UploadButton from '../proj-files/button-upload';
+import ListFilesButton from '../proj-files/button-list-files'
 import {getUsername} from '../lib/get-info'
 
 // List
@@ -123,6 +124,7 @@ export const ProjShow = (props) => {
           <ChipField source={"skill_name"}/>
         </SingleFieldList>
       </ReferenceArrayField>
+      <ListFilesButton {...props}/>
     </SimpleShowLayout>
   </Show>
 )};

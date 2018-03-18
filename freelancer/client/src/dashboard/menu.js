@@ -34,6 +34,10 @@ const Menu = ({onMenuTap, translate, logout}) => (
       to={"/users?filter={}"}
       primaryText={"Users"}
       onClick={onMenuTap}/>
+    <MenuItemLink
+      to={"/proj-files?filter={}"}
+      primaryText={"Files"}
+      onClick={onMenuTap}/>
     <Divider/>
     <br/>
     <MenuItemLink
