@@ -11,6 +11,7 @@ const fileUpload = require('express-fileupload');
 var index = require('./routes/index');
 var swagger = require('./swagger');
 var users = require('./controllers/users-ctrl');
+var userSkills = require('./controllers/user-skills-ctrl');
 var projs = require('./controllers/projs-ctrl');
 var hire = require('./controllers/hire-ctrl');
 var images = require('./controllers/images-ctrl');
@@ -45,6 +46,7 @@ app.use(cors(corsOptions));
 app.use('/', index);
 app.use('/api/docs', swagger);
 app.use('/api/users', users);
+app.use('/api/user-skills', userSkills);
 app.use('/api/projects', projs);
 app.use('/api/hire', hire);
 app.use('/api/images', images);
@@ -52,6 +54,7 @@ app.use('/api/bids', bids);
 app.use('/api/skills', skills);
 app.use('/api/proj-skills', projSkills);
 app.use('/api/proj-files', projFiles);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

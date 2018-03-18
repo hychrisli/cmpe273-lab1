@@ -1,11 +1,17 @@
 import React from 'react';
 import {TextField, ReferenceField, ShowButton, BooleanField} from 'admin-on-rest';
-import {List, Datagrid, Show, SimpleShowLayout} from 'admin-on-rest';
+import {List, Datagrid, Show, SimpleShowLayout, Filter, TextInput} from 'admin-on-rest';
 import DelButton from './button-delete'
 import HireButton from './button-hire'
 
+const BidFilter = (props) => (
+  <Filter {...props}>
+    <TextInput label={"Bidder"} source={"username"}/>
+  </Filter>
+);
+
 export const BidList = (props) => (
-  <List title="Bids" {...props}>
+  <List title="Bids" {...props} filters={<BidFilter/>}>
     <Datagrid>
       <TextField source="id"/>
       <ReferenceField label={"Project"} source="project_id" reference={"projects"} linkType="show">

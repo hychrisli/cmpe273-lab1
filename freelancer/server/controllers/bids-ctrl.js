@@ -9,15 +9,29 @@ const {promiseGetResponse, promisePostResponse, promiseGetOneResponse, promiseDe
  *  get:
  *    description: Retrieve all bids
  *    tags:
- *       - bids
+ *      - bids
  *    produces:
  *      - application/json
+ *    parameters:
+ *      - name: username
+ *        in : query
+ *        required: false
+ *        type: string
+ *        description: retrieve bids as bidder
  *    responses:
  *      200:
  *        description: bids
  */
 router.get('/', (req, res) => {
-  promiseGetResponse(BidDao.retrieveAll(), res, 200);
+
+  const username = req.query.username;
+  let filter = {};
+  if (username !== undefined){
+    console.log(username);
+    filter['username'] = username;
+  }
+
+  promiseGetResponse(BidDao.retrieveAll(filter), res, 200);
 });
 
 /**

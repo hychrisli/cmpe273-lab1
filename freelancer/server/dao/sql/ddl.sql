@@ -22,11 +22,11 @@ CREATE TABLE IF NOT EXISTS SKILL (
 
 CREATE TABLE IF NOT EXISTS USER_SKILL(
   id INTEGER PRIMARY KEY AUTO_INCREMENT,
-  user_id INTEGER,
+  username  VARCHAR(20),
   skill_id INTEGER,
-  FOREIGN KEY (user_id) REFERENCES USER(id),
+  FOREIGN KEY (username) REFERENCES USER(username),
   FOREIGN KEY (skill_id) REFERENCES SKILL(id),
-  UNIQUE `user_skill_uidx` (user_id, skill_id)
+  UNIQUE `user_skill_uidx` (username, skill_id)
 );
 
 CREATE TABLE IF NOT EXISTS PROJECT(

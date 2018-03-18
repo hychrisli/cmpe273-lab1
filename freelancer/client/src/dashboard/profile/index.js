@@ -3,6 +3,7 @@ import {reduxForm, Field} from 'redux-form'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import { showNotification as showNotificationAction } from 'admin-on-rest';
+import AddSkillButton from '../user-skills/button-add-skill';
 
 import Messages from '../../notifications/messages'
 import Errors from '../../notifications/errors'
@@ -166,6 +167,7 @@ class Profile extends Component {
           />
           <button type="submit">Update</button>
         </form>
+        <AddSkillButton/>
         <div className={"auth-messages"}>
           {!updating && !!errors && (
             <Errors message={"Failed to update profile due to: "} errors={errors}/>

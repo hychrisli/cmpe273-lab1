@@ -30,12 +30,12 @@ exports.insertIgnoreMultiPromise = (table, attrs, multiAttrName) => {
   }
   keys.push(multiAttrName);
   const colStr = '(' + keys.join(',') + ')';
-  const valStr = '(' + vals.join(',');
+  const valStr = "('" + vals.join("','");
   const tuples = [];
   const multi = attrs[multiAttrName];
 
   for ( let i =0; i < multi.length; i++){
-    tuples.push(valStr + ',' + multi[i] + ')')
+    tuples.push(valStr + "','" + multi[i] + "')")
   }
 
   const myQuery = 'INSERT IGNORE INTO ' + table + colStr + ' VALUES ' + tuples.join(',');

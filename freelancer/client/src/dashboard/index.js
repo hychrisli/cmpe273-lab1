@@ -19,6 +19,7 @@ import {SkillList, SkillCreate} from './skills';
 import {ProjSkillList, MyProjSkillCreate} from './proj-skills'
 import {ProjFileList, MyProjFileCreate} from './proj-files'
 import {UserList} from './users'
+import {UserSkillList,MySkillCreate} from './user-skills'
 
 import {connect} from "react-redux";
 
@@ -79,7 +80,11 @@ class Dashboard extends Component {
           />
           <Resource name={'users'}
                     list={UserList}
-                    />
+          />
+          <Resource name={'user-skills'}
+                    list={UserSkillList}
+                    create={MySkillCreate}
+          />
           <Resource name={"profile"}/>
         </Admin>
       </div>

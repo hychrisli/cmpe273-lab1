@@ -4,8 +4,8 @@ const projBidCrud = Crud(cnxPool, 'PROJECT_BID');
 
 module.exports = {
 
-  retrieveAll: ()=>{
-    return queryPromise(projBidCrud.load, {});
+  retrieveAll: (filter)=>{
+    return queryPromise(projBidCrud.load, filter);
   },
 
   retrieveBid: (bid_id)=>{
