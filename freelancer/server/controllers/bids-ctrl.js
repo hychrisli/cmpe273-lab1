@@ -24,11 +24,11 @@ const {promiseGetResponse, promisePostResponse, promiseGetOneResponse, promiseDe
  */
 router.get('/', (req, res) => {
 
-  const username = req.query.username;
+  const user_id = req.query.user_id;
   let filter = {};
-  if (username !== undefined){
-    console.log(username);
-    filter['username'] = username;
+  if (user_id !== undefined){
+    console.log(user_id);
+    filter['user_id'] = user_id;
   }
 
   promiseGetResponse(BidDao.retrieveAll(filter), res, 200);

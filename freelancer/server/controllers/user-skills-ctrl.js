@@ -13,7 +13,7 @@ const {promiseGetResponse, promisePostResponse} = require('./ctrls');
  *    produces:
  *      - application/json
  *    parameters:
- *      - name: project_id
+ *      - name: user_id
  *        in : query
  *        required: false
  *        type: string
@@ -23,10 +23,10 @@ const {promiseGetResponse, promisePostResponse} = require('./ctrls');
  *        description: user skills
  */
 router.get('/', (req, res) => {
-  const username = req.query.username;
+  const user_id = req.query.user_id;
   let filter = {};
-  if (username !== undefined) {
-    filter['username'] = username;
+  if (user_id !== undefined) {
+    filter['user_id'] = user_id;
   }
   promiseGetResponse(userSkillDao.retrieve(filter), res, 200);
 });

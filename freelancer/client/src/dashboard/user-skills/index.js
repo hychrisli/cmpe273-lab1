@@ -15,16 +15,8 @@ const cardActionStyle = {
 
 const UserFilter = (props) => (
   <Filter {...props}>
-    <TextInput label={"Username"} source={"username"}/>
+    <TextInput label={"User ID"} source={"user_id"}/>
   </Filter>
-);
-
-const UserSkillListActions = ({basePath, data}) => (
-  <CardActions style={cardActionStyle}>
-    <CreateButton record={data}/>
-    <AddSkillButton record={data}/>
-    <RefreshButton />
-  </CardActions>
 );
 
 export const UserSkillList = (props) => (
@@ -41,7 +33,7 @@ export const UserSkillList = (props) => (
 
 const UserSkillCreate = (props) => {
   const {
-    client:{token:{username}},
+    client:{token:{id, username}},
     skillChoices
   } = props;
 
@@ -53,7 +45,7 @@ const UserSkillCreate = (props) => {
   else {
     return (
       <Create {...props} title={"Add Skill for " + username}>
-        <SimpleForm redirect={'/user-skills?filter={"username"%3A"'+username+'"}'} submitOnEnter={false}>
+        <SimpleForm redirect={'/user-skills?filter={"user_id"%3A"'+id+'"}'} submitOnEnter={false}>
           <TextInput source="username" defaultValue={username}/>
           <SelectArrayInput source="skill_id" choices={skillChoices} optionText="skill_name" optionValue="id" />
         </SimpleForm>

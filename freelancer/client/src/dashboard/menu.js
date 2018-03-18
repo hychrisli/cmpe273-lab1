@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {DashboardMenuItem, MenuItemLink, getResources } from 'admin-on-rest';
-import {getUsername} from "./lib/get-info";
+import {getUserId} from "./lib/get-info";
 import {Divider} from 'material-ui'
 
 
@@ -19,16 +19,20 @@ const Menu = ({onMenuTap, translate, logout}) => (
   <div style={styles.main}>
     <DashboardMenuItem onClick={onMenuTap} />
     <MenuItemLink
-      to={"/projects?"}
+      to={"/projects?filter={}"}
       primaryText={"Projects"}
       onClick={onMenuTap}/>
     <MenuItemLink
-      to={"/bids?"}
+      to={"/bids?filter={}"}
       primaryText={"Bids"}
       onClick={onMenuTap}/>
     <MenuItemLink
-      to={"/skills?"}
+      to={"/skills?filter={}"}
       primaryText={"All Skills"}
+      onClick={onMenuTap}/>
+    <MenuItemLink
+      to={"/users?filter={}"}
+      primaryText={"Users"}
       onClick={onMenuTap}/>
     <Divider/>
     <br/>
@@ -37,15 +41,15 @@ const Menu = ({onMenuTap, translate, logout}) => (
       primaryText={"Profile"}
       onClick={onMenuTap}/>
     <MenuItemLink
-      to={'/user-skills?filter={"username"%3A"'+ getUsername() +'"}'}
+      to={'/user-skills?filter={"user_id"%3A"'+ getUserId() +'"}'}
       primaryText={"My Skills"}
       onClick={onMenuTap}/>
     <MenuItemLink
-      to={'/projects?filter={"employer"%3A"'+ getUsername()+'"}'}
+      to={'/projects?filter={"employer_id"%3A"'+ getUserId()+'"}'}
       primaryText={"My Projects"}
       onClick={onMenuTap}/>
     <MenuItemLink
-      to={'/bids?filter={"username"%3A"'+ getUsername()+'"}'}
+      to={'/bids?filter={"user_id"%3A"'+ getUserId()+'"}'}
       primaryText={"My Bids"}
       onClick={onMenuTap}/>
     {logout}

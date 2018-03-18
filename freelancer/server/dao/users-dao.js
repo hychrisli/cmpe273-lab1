@@ -8,8 +8,12 @@ module.exports = {
     return queryPromise(userCrud.load, {});
   },
 
-  retrieve: (username) => {
-    return queryPromise(userCrud.load, {username: username});
+  retrieve: (id) => {
+    return queryPromise(userCrud.load, {id});
+  },
+
+  retrieveByUserName: (username) => {
+    return queryPromise(userCrud.load, {username});
   },
 
   insert: (attr) => {

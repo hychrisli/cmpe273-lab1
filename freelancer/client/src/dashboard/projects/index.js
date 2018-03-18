@@ -16,7 +16,7 @@ import {getUsername} from '../lib/get-info'
 
 const ProjFilter = (props) => (
   <Filter {...props}>
-    <TextInput label={"Employer"} source={"employer"}/>
+    <TextInput label={"Employer ID"} source={"employer_id"}/>
   </Filter>
 );
 
@@ -25,7 +25,9 @@ export const ProjList = (props) => (
     <Datagrid>
       <TextField source="title"/>
       <TextField source="description"/>
-      <TextField source="employer"/>
+      <ReferenceField label={"Employer"} source="employer_id" reference={"users"} linkType="show">
+        <TextField source={"username"}/>
+      </ReferenceField>
       <BidButton/>
       <EditButton/>
       <ShowButton/>
@@ -107,7 +109,9 @@ export const ProjShow = (props) => {
     <SimpleShowLayout>
       <TextField source={"title"}/>
       <TextField source={"description"}/>
-      <TextField source={"employer"}/>
+      <ReferenceField label={"Employer"} source="employer_id" reference={"users"} linkType="show">
+        <TextField source={"username"}/>
+      </ReferenceField>
       <TextField source={"min_budget"}/>
       <TextField source={"max_budget"}/>
       <DateField source={"start_date"}/>

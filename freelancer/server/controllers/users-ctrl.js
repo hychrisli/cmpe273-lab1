@@ -31,7 +31,7 @@ router.get('/', (req, res) => {
 
 /**
  * @swagger
- * /users/{username}:
+ * /users/{id}:
  *  get:
  *    description: Retrieve User Info
  *    tags:
@@ -39,19 +39,28 @@ router.get('/', (req, res) => {
  *    produces:
  *      - application/json
  *    parameters:
- *      - name: username
- *        description: username
+ *      - name: id
+ *        description: user ID
  *        in: path
  *        required: true
- *        type: string
+ *        type: number
  *    responses:
  *      200:
  *        description: a user
  *        schema:
  *          $ref: '#/definitions/User'
  */
-router.get('/:username', function (req, res, next) {
-  promiseGetOneResponse(userDao.retrieve(req.params.username), res, 200);
+router.get('/:id', function (req, res, next) {
+  console.log(req.params.id);
+  const id = req.params.id;
+  let promise;
+  if ( id.match(/^-{0,1}\d+$/)){
+    promise = userDao.retrieve(Number(id));
+  }
+  else {
+    promise = userDao.retrieveByUserName(id);
+  }
+  promiseGetOneResponse(promise, res, 200);
 });
 
 
@@ -118,7 +127,7 @@ router.post('/login', function (req, res, next) {
   const username = req.body.username;
   console.log(req.body);
   console.log(req.body.password);
-  const promise = userDao.retrieve(username);
+  const promise = userDao.retrieveByUserName(username);
   promise.then((val)=>{
     if (val.length > 0) {
       console.log(val);
@@ -178,7 +187,7 @@ router.post('/login', function (req, res, next) {
  */
 router.put('/:username', function (req, res, next) {
   console.log(req.body);
-  const username = req.params.username
+  const username = req.params.username;
   let form = req.body;
 
   if (form.password !== undefined)

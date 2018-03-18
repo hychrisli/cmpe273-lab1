@@ -25,11 +25,11 @@ const {promiseGetResponse, promisePostResponse} = require('./ctrls');
  *        description: projects
  */
 router.get('/', (req, res) => {
-  const employer = req.query.employer;
+  const employer_id = req.query.employer_id;
   let filter = {};
-  if (employer !== undefined){
-    console.log(employer);
-    filter['employer'] = employer;
+  if (employer_id !== undefined){
+    console.log(employer_id);
+    filter['employer_id'] = employer_id;
   }
 
   promiseGetResponse(projDao.retrieveAll(filter), res, 200);

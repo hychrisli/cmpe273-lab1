@@ -68,7 +68,7 @@ router.post('/:username', (req, res) =>{
 router.get('/:username', (req, res)=> {
   const username = req.params.username;
 
-  const promise = userDao.retrieve(username);
+  const promise = userDao.retrieveByUserName(username);
   promise.then((val)=>{
     if (val.length < 1)
       res.status(400).send("No such user");

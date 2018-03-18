@@ -6,7 +6,7 @@ import HireButton from './button-hire'
 
 const BidFilter = (props) => (
   <Filter {...props}>
-    <TextInput label={"Bidder"} source={"username"}/>
+    <TextInput label={"Bidder ID"} source={"user_id"}/>
   </Filter>
 );
 
@@ -17,7 +17,9 @@ export const BidList = (props) => (
       <ReferenceField label={"Project"} source="project_id" reference={"projects"} linkType="show">
         <TextField source={"title"}/>
       </ReferenceField>
-      <TextField label={"Bidder"} source={"username"}/>
+      <ReferenceField label={"Bidder"} source="user_id" reference={"users"} linkType="show">
+        <TextField source={"username"}/>
+      </ReferenceField>
       <TextField source={"is_active"}/>
       <TextField source={"bid_price"}/>
       <TextField source={"bid_days"}/>
