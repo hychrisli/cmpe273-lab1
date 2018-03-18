@@ -71,16 +71,21 @@ router.get('/:bid_id', function (req, res, next) {
  *    produces:
  *      - application/json
  *    parameters:
- *      - name: username
+ *      - name: user_id
  *        description: user to bid the project
  *        in: formData
  *        required: true
- *        type: string
+ *        type: number
  *      - name: project_id
  *        description: Id of the project
  *        in: formData
  *        required: true
- *        type: string
+ *        type: number
+ *      - name: employer_id
+ *        description: Id of the employer
+ *        in: formData
+ *        required: true
+ *        type: number
  *      - name: bid_price
  *        description: bid price for the project
  *        in: formData

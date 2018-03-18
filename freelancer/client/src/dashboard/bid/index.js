@@ -14,25 +14,21 @@ class BidCreate extends Component {
     handleSubmit: PropTypes.func,
     bidProject: PropTypes.func,
     client: PropTypes.shape({
-      token: PropTypes.shape({
-        username: PropTypes.string
-      })
+      token: PropTypes.object
     }),
-    project: PropTypes.shape({
-      id: PropTypes.number,
-      title: PropTypes.string
-    })
+    project: PropTypes.object
   };
 
   componentDidMount(){
     const {
-      client: {token: {username}},
-      project: {id}
+      client,
+      project
     } = this.props;
 
     this.props.initialize({
-      username: username,
-      projectId: id
+      userId: client.token.id,
+      projectId: project.id,
+      employerId: project.employer_id
     });
   }
 
@@ -58,10 +54,10 @@ class BidCreate extends Component {
           <h1>Bidding</h1>
           <h3>Project: {title} </h3>
           <Field
-            name={"username"}
+            name={"userId"}
             type={"text"}
             component={"input"}
-            label={"Username"}
+            label={"User ID"}
             disabled={true}
           />
           <Field
@@ -69,6 +65,13 @@ class BidCreate extends Component {
             type={"text"}
             component={"input"}
             label={"Project ID"}
+            disabled={true}
+          />
+          <Field
+            name={"employerId"}
+            type={"text"}
+            component={"input"}
+            label={"Employer ID"}
             disabled={true}
           />
           <Field

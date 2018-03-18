@@ -13,8 +13,8 @@ VALUES ('Project 2', 'Hello hello project 2', 1, 400.0, 600.0, STR_TO_DATE('12/2
 INSERT INTO PROJECT (title, description, employer_id, min_budget, max_budget, start_date)
 VALUES ('Project 3', 'Here again project 3', 2, 500.0, 800.0, STR_TO_DATE('02/12/2018', '%m/%d/%Y'));
 
-INSERT INTO PROJECT_BID(user_id, project_id, bid_price, bid_days)
-    VALUES(1, 3, 600, 80), (2, 1, 350, 60);
+INSERT INTO PROJECT_BID(user_id, project_id, employer_id, bid_price, bid_days)
+    VALUES(1, 3, 2, 600, 80), (2, 1, 1, 350, 60);
 
 
 INSERT INTO SKILL (skill_name)

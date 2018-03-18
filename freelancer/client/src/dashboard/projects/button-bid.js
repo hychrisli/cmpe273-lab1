@@ -26,7 +26,7 @@ class BidButton extends Component{
         token
       }
     } = this.props;
-    return <FlatButton label={"Bid"} disabled={record.employer === token.username} onClick={this.handleClick}/>
+    return <FlatButton label={"Bid"} disabled={record.employer_id === token.id} onClick={this.handleClick}/>
   }
 }
 

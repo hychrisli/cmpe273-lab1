@@ -39,13 +39,14 @@ class HireButton extends Component{
 
   render() {
     const {
-
+      record,
       client:{
         token
       }
     } = this.props;
 
-    return <FlatButton label={"Hire"} disabled={true} onClick={this.handleClick}/>
+    const isDisabled = !(record.is_active === 'true' && token.id === record.employer_id);
+    return <FlatButton label={"Hire"} disabled={isDisabled} onClick={this.handleClick}/>
   }
 }
 

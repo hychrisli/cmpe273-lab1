@@ -65,11 +65,13 @@ CREATE TABLE IF NOT EXISTS PROJECT_BID(
   id INTEGER PRIMARY KEY AUTO_INCREMENT,
   user_id INTEGER NOT NULL,
   project_id INTEGER NOT NULL,
+  employer_id INTEGER NOT NULL,
   bid_price DECIMAL NOT NULL,
   bid_days INTEGER NOT NULL,
   is_active varchar(5) DEFAULT 'true',
   FOREIGN KEY (project_id) REFERENCES PROJECT(id),
   FOREIGN KEY (user_id) REFERENCES USER(id),
+  FOREIGN KEY (employer_id) REFERENCES USER(id),
   UNIQUE `project_bid_uidx` (project_id, user_id)
 );
 

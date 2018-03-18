@@ -22,8 +22,9 @@ function* bidFlow(action) {
   try{
     const {values} = action;
     const body = {
-      username: values.username,
+      user_id: values.userId,
       project_id: values.projectId,
+      employer_id: values.employerId,
       bid_price: values.bidPrice,
       bid_days: values.bidDays,
     };

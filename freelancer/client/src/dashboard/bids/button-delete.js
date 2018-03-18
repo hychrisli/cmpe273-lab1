@@ -68,7 +68,8 @@ class DelButton extends Component{
       }
     } = this.props;
 
-    return <FlatButton label={"Delete"} disabled={token.username !== record.username} onClick={this.handleClick}/>
+    const isDisabled = !(record.is_active === 'true' && token.id === record.user_id);
+    return <FlatButton label={"Delete"} disabled={ isDisabled } onClick={this.handleClick}/>
   }
 }
 
