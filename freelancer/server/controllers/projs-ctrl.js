@@ -3,6 +3,7 @@ const router = express.Router();
 const projDao = require('../dao/projs-dao');
 const projSkillDao = require('../dao/proj-skills-dao');
 const projFilesDao = require('../dao/proj-files-dao');
+const BidDao = require('../dao/bids-dao');
 const {promiseGetResponse, promisePostResponse} = require('./ctrls');
 
 /**
@@ -62,12 +63,16 @@ router.get('/:project_id', function (req, res, next) {
     const projPromise = projDao.retrieve(Number(project_id));
     const skillPromise = projSkillDao.retrieve({project_id});
     const filesPromise = projFilesDao.retrieve({project_id});
+    const bidsPromise = BidDao.countBids({project_id});
+    const avgPricePromise = BidDao.avgBidPrice('bid_price', {project_id});
 
-    Promise.all([projPromise, skillPromise, filesPromise])
+    Promise.all([projPromise, skillPromise, filesPromise, bidsPromise, avgPricePromise])
       .then(results => {
         const projs = results[0];
         const skills = results[1];
         const files = results[2];
+        const cnts = results[3];
+        const avgs = results[4];
 
         if ( projs.length < 1)
           res.status(404).send("Not Found");
@@ -86,6 +91,8 @@ router.get('/:project_id', function (req, res, next) {
           res.set('Access-Control-Expose-Headers', 'X-Total-Count');
           proj['skills'] = skillSet;
           proj['files'] = fileSet;
+          proj['bids'] = cnts[0].cnt;
+          proj['avg_price'] = avgs[0].avg_price;
           res.status(200).send(JSON.stringify(proj));
         }
 

@@ -116,6 +116,8 @@ export const ProjShow = (props) => {
       <TextField source={"max_budget"}/>
       <DateField source={"start_date"}/>
       <TextField source={"chosen_bid"}/>
+      <TextField source={"bids"}  label={"# of Bids"}/>
+      <TextField source={"avg_price"}  label={"Avg. Bid Price"}/>
       <ReferenceArrayField label={"skills"} reference={"skills"} source={"skills"}>
         <SingleFieldList>
           <ChipField source={"skill_name"}/>

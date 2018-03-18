@@ -8,15 +8,30 @@ exports.cnxPool = mysql.createPool({
   database: 'flc'
 });
 
-exports.countPromise = (table) => {
+exports.countPromise = (table, where={}) => {
+  const myQuery = 'SELECT COUNT(*) cnt FROM ' + table + genWhereCondition(where);
+  console.log(myQuery);
   return new Promise((resolve, reject) => {
-    this.cnxPool.query('SELECT COUNT(*) cnt FROM ' + table,
+    this.cnxPool.query(myQuery,
       (error, results) => {
       if (error) return reject(error);
       resolve(results);
     })
   })
 };
+
+exports.avgPromise = (table, attr, where={}) => {
+  const myQuery = 'SELECT avg('+ attr +') avg_price FROM ' + table + genWhereCondition(where);
+  console.log(myQuery);
+  return new Promise((resolve, reject) => {
+    this.cnxPool.query(myQuery,
+      (error, results) => {
+        if (error) return reject(error);
+        resolve(results);
+      })
+  })
+};
+
 
 exports.insertIgnoreMultiPromise = (table, attrs, multiAttrName) => {
 
@@ -85,3 +100,15 @@ exports.deletePromise = (func, where) => {
     })
   })
 };
+
+function genWhereCondition(where) {
+
+  const condis = [];
+
+  for ( let key in where ){
+    let condi = key + " ='" + where[key] + "'";
+    condis.push(condi);
+  }
+
+  return ' WHERE ' + condis.join(' AND ');
+}
