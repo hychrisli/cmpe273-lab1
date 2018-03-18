@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS USER (
   password VARCHAR(100) NOT NULL,
   email VARCHAR(20) NOT NULL UNIQUE,
   image VARCHAR(100),
+  image_url VARCHAR(150),
   about_me VARCHAR(200)
 );
 
@@ -52,10 +53,12 @@ CREATE TABLE IF NOT EXISTS PROJECT_SKILL(
 
 CREATE TABLE IF NOT EXISTS PROJECT_FILE(
   id INTEGER PRIMARY KEY AUTO_INCREMENT,
-  project_id INTEGER,
-  file  varchar(100) UNIQUE ,
-  file_name varchar(80),
-  FOREIGN KEY (project_id) REFERENCES PROJECT(id)
+  project_id INTEGER NOT NULL,
+  file  varchar(100) UNIQUE NOT NULL,
+  file_name varchar(80) NOT NULL,
+  owner VARCHAR(20) NOT NULL,
+  FOREIGN KEY (project_id) REFERENCES PROJECT(id),
+  FOREIGN KEY (owner) REFERENCES USER(username)
 );
 
 CREATE TABLE IF NOT EXISTS PROJECT_BID(
@@ -64,6 +67,7 @@ CREATE TABLE IF NOT EXISTS PROJECT_BID(
   project_id INTEGER NOT NULL,
   bid_price DECIMAL NOT NULL,
   bid_days INTEGER NOT NULL,
+  is_active varchar(5) DEFAULT 'true',
   FOREIGN KEY (project_id) REFERENCES PROJECT(id),
   FOREIGN KEY (username) REFERENCES USER(username),
   UNIQUE `project_bid_uidx` (project_id, username)

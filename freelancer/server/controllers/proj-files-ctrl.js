@@ -4,14 +4,6 @@ const projFileDao = require('../dao/proj-files-dao');
 const fs = require('fs');
 const fileDir = process.cwd() + process.env.FILE_DIR;
 const {promisePostNotice, promiseGetResponse} = require('./ctrls');
-const multer = require('multer');
-const upload = multer({ dest: 'uploads/' })
-const mv = require('mv');
-var FileReader = require('filereader')
-  , fileReader = new FileReader()
-;
-var readBlob = require('read-blob');
-
 
 /**
  * @swagger
@@ -71,6 +63,7 @@ router.post('/', (req, res) =>{
   console.log(req.body);
   console.log(req.files);
   const project_id = req.body.project_id;
+  const owner = req.body.owner;
 
   if ( req.files === undefined )
     return res.status(400).send('No files were uploaded');
@@ -94,7 +87,8 @@ router.post('/', (req, res) =>{
         console.log(err);
         return res.status(500).send(err);
       }
-      promisePostNotice(projFileDao.insert({project_id, file: serverFile, file_name: fileObj.name }), "Upload Success", res, 201);
+      const attrs = {project_id, owner, file: serverFile, file_name: fileObj.name };
+      promisePostNotice(projFileDao.insert(attrs), "Upload Success", res, 201);
     })
   }
 });
@@ -139,6 +133,42 @@ router.get('/:file_id', (req, res)=> {
     }
   }).catch((err) => {
     console.log(err);
+    res.status(500).send(err);
+  });
+});
+
+/**
+ * @swagger
+ * /proj-files/{file_id}:
+ *  delete:
+ *    description: delete a file
+ *    tags:
+ *       - proj-files
+ *    produces:
+ *      - application/json
+ *    parameters:
+ *      - name: file_id
+ *        description: file ID
+ *        in: path
+ *        required: true
+ *        type: number
+ *    responses:
+ *      200:
+ *        description: delete a file
+ */
+router.delete('/:bid_id', function (req, res) {
+  const file_id = req.params.file_id;
+  const retrievePromise = projFileDao.retrieve({id: file_id});
+  const delPromise = projFileDao.delete({id: file_id});
+
+  Promise.all([retrievePromise, delPromise])
+    .then((results) => {
+      const projFile = results[0];
+      const serverFileFull = fileDir + '/' + projFile[0].file;
+      if (fs.existsSync(serverFileFull)) fs.unlinkSync(serverFileFull);
+      res.send({res: "Delete success"})
+    }).catch(err => {
+    console.log(error);
     res.status(500).send(err);
   });
 });

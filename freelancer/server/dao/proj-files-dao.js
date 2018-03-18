@@ -1,4 +1,4 @@
-const {cnxPool, queryPromise, insertPromise} = require('./db');
+const {cnxPool, queryPromise, insertPromise, deletePromise} = require('./db');
 const Crud = require('mysql-crud');
 const projFileCrud = Crud(cnxPool, 'PROJECT_FILE');
 
@@ -11,4 +11,8 @@ module.exports = {
   insert: (attr)=>{
     return insertPromise(projFileCrud.create, attr);
   },
+
+  delete: (attr) => {
+    return deletePromise(projFileCrud.destroy, attr);
+  }
 };

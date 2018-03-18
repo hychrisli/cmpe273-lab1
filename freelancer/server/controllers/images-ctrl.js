@@ -21,7 +21,7 @@ const {promisePutNotice} = require('./ctrls');
  *        required: true
  *        type: string
  *      - in: formData
- *        name: image
+ *        name: file
  *        type: file
  *        description: upload image
  *    responses:
@@ -30,16 +30,19 @@ const {promisePutNotice} = require('./ctrls');
  */
 router.post('/:username', (req, res) =>{
   const username = req.params.username;
+
   if ( !req.files )
     return res.status(400).send('No files were uploaded');
 
-  let image = req.files.image;
+  let image = req.files.file;
   let imageName = username + '_' + image.name;
 
   image.mv( imageDir + '/' + imageName, (err) => {
     if ( err )
       return res.status(500).send(err);
-    promisePutNotice(userDao.update(req.params.username, {image: imageName}), 'Image uploaded!', res, 200);
+    promisePutNotice(userDao.update(req.params.username,
+      {image: imageName, image_url: 'http://localhost:5000/api/images/' + username}),
+      'Image uploaded!', res, 200);
   })
 });
 

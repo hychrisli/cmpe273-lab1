@@ -5,6 +5,7 @@ import {List, Datagrid, Filter} from 'admin-on-rest';
 import {SimpleForm, Create, Show, SelectArrayInput} from 'admin-on-rest';
 import {ViewTitle} from 'admin-on-rest';
 import DownloadButton from './button-download'
+import DeleteButton from './button-delete'
 import NotAuthorized from '../lib/not-authorized'
 import {connect} from "react-redux"
 import FileUpload from './upload-file';
@@ -22,7 +23,11 @@ export const ProjFileList = (props) => (
       <ReferenceField label={"Project"} source="project_id" reference={"projects"} linkType="show">
         <TextField source={"title"}/>
       </ReferenceField>
+      <ReferenceField label={"Project"} source="project_id" reference={"projects"} linkType="show">
+        <TextField source={"employer"} label={"Owner"}/>
+      </ReferenceField>
       <TextField source={"file_name"}/>
+      <DeleteButton/>
       <DownloadButton/>
     </Datagrid>
   </List>

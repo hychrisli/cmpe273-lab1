@@ -18,6 +18,7 @@ import {BidList, BidShow} from './bids';
 import {SkillList, SkillCreate} from './skills';
 import {ProjSkillList, MyProjSkillCreate} from './proj-skills'
 import {ProjFileList, MyProjFileCreate} from './proj-files'
+import {UserList} from './users'
 
 import {connect} from "react-redux";
 
@@ -76,6 +77,9 @@ class Dashboard extends Component {
                     list={ProjFileList}
                     create={MyProjFileCreate}
           />
+          <Resource name={'users'}
+                    list={UserList}
+                    />
           <Resource name={"profile"}/>
         </Admin>
       </div>

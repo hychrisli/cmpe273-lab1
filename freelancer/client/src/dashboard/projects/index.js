@@ -4,6 +4,7 @@ import {Edit, SimpleForm, TextInput, NumberInput, SingleFieldList} from 'admin-o
 import {Filter, Create, DateInput, Show, SimpleShowLayout, DateField, ChipField} from 'admin-on-rest';
 import {ListButton, RefreshButton } from 'admin-on-rest';
 import { CardActions } from 'material-ui/Card';
+import Divider from 'material-ui/Divider';
 import BidButton from './button-bid'
 import EditButton from './button-edit'
 import SkillsButton from './button-skills'
@@ -61,6 +62,13 @@ export const ProjEdit = (props) => (
           <ChipField source={"skill_name"}/>
         </SingleFieldList>
       </ReferenceArrayField>
+      <AddSkillButton/>
+      <ReferenceArrayField label={"files"} reference={"proj-files"} source={"files"}>
+        <SingleFieldList>
+          <ChipField source={"file_name"}/>
+        </SingleFieldList>
+      </ReferenceArrayField>
+      <UploadButton/>
     </SimpleForm>
   </Edit>
 );

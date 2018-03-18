@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const projDao = require('../dao/projs-dao');
-const {promisePostResponse} = require('./ctrls');
+const BidDao = require('../dao/bids-dao');
 
 /**
  * @swagger
@@ -29,7 +29,18 @@ const {promisePostResponse} = require('./ctrls');
  */
 
 router.put('/:project_id', (req, res) => {
-  promisePostResponse(projDao.update(Number(req.params.project_id), req.body), req, res, 200);
-});
+    const project_id = req.params.project_id;
+    const hirePromise = projDao.update(Number(project_id), req.body);
+    const bidPromise = BidDao.update({project_id}, {is_active: 'false'});
+
+    Promise.all([hirePromise, bidPromise])
+      .then(() => {
+        res.status(200).send(JSON.stringify({res: "Hire Success"}));
+      }).catch(err => {
+      console.log(error);
+      res.status(500).send(err);
+    });
+  }
+);
 
 module.exports = router;

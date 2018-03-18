@@ -16,8 +16,8 @@ module.exports = {
     return insertPromise(projBidCrud.create, attr);
   },
 
-  updateBid: (bid_id, attr)=>{
-    return updatePromise(projBidCrud.update, {id: bid_id}, attr);
+  update: (where, attr)=>{
+    return updatePromise(projBidCrud.update, where, attr);
   },
 
   deleteBid: (bid_id) => {
