@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 const cors = require('cors');
 const fileUpload = require('express-fileupload');
 
+
 var index = require('./routes/index');
 var swagger = require('./swagger');
 var users = require('./controllers/users-ctrl');
@@ -32,7 +33,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload({preserveExtension: true}));
-
 //cors
 const corsOptions = {
   credentials: true,

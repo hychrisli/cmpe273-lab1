@@ -53,7 +53,8 @@ CREATE TABLE IF NOT EXISTS PROJECT_SKILL(
 CREATE TABLE IF NOT EXISTS PROJECT_FILE(
   id INTEGER PRIMARY KEY AUTO_INCREMENT,
   project_id INTEGER,
-  file  varchar(100),
+  file  varchar(100) UNIQUE ,
+  file_name varchar(80),
   FOREIGN KEY (project_id) REFERENCES PROJECT(id)
 );
 

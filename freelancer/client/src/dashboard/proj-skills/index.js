@@ -4,9 +4,7 @@ import {TextInput} from 'admin-on-rest';
 import {List, Datagrid, Filter} from 'admin-on-rest';
 import {SimpleForm, Create, Show, SelectArrayInput} from 'admin-on-rest';
 import {connect} from "react-redux";
-import { Card, CardText } from 'material-ui/Card';
-import { ViewTitle } from 'admin-on-rest';
-import RedirectButton from '../lib/button-redirect'
+import NotAuthorized from '../lib/not-authorized'
 
 const ProjFilter = (props) => (
   <Filter {...props}>
@@ -21,8 +19,7 @@ export const ProjSkillList = (props) => (
       <ReferenceField label={"Project"} source="project_id" reference={"projects"} linkType="show">
         <TextField source={"title"}/>
       </ReferenceField>
-      <ReferenceField label={"Ski" +
-      "ll"} source="skill_id" reference={"skills"} linkType="show">
+      <ReferenceField label={"Skill"} source="skill_id" reference={"skills"} linkType="show">
         <TextField source={"skill_name"}/>
       </ReferenceField>
     </Datagrid>
@@ -30,7 +27,7 @@ export const ProjSkillList = (props) => (
 );
 
 
-export const ProjSkillCreate = (props) => {
+const ProjSkillCreate = (props) => {
   const {
     project,
     client:{token:{username}},
@@ -39,12 +36,7 @@ export const ProjSkillCreate = (props) => {
 
   if ( project.id === undefined )
     return (
-      <Card>
-        <ViewTitle title={"Not Authorized"} />
-        <CardText>
-          <RedirectButton/>
-        </CardText>
-      </Card>
+      <NotAuthorized/>
     );
 
   else {

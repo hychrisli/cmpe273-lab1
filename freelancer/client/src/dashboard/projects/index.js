@@ -8,6 +8,7 @@ import BidButton from './button-bid'
 import EditButton from './button-edit'
 import SkillsButton from './button-skills'
 import AddSkillButton from '../proj-skills/button-add-skill';
+import UploadButton from '../proj-files/button-upload';
 import {getUsername} from '../lib/get-info'
 
 // List
@@ -42,6 +43,7 @@ const ProjEditActions = ({basePath, data}) => (
     <ShowButton basePath={basePath} record={data}/>
     <ListButton basePath={basePath} />
     <AddSkillButton record={data}/>
+    <UploadButton record={data}/>
     <RefreshButton />
   </CardActions>
 );

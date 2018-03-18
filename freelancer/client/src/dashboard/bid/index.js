@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {reduxForm, Field} from 'redux-form'
 import {connect} from 'react-redux'
-import { push as pushAction } from 'react-router-redux';
 import PropTypes from 'prop-types'
 
 import Messages from '../../notifications/messages'
@@ -107,7 +106,7 @@ const mapStateToProps = state => ({
   enableReinitialize: true
 });
 
-const connected = connect(mapStateToProps, {bidProject, push: pushAction})(BidCreate);
+const connected = connect(mapStateToProps, {bidProject})(BidCreate);
 
 const formed = reduxForm({
   form: 'bid',

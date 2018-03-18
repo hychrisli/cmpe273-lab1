@@ -3,13 +3,48 @@ const router = express.Router();
 const projFileDao = require('../dao/proj-files-dao');
 const fs = require('fs');
 const fileDir = process.cwd() + process.env.FILE_DIR;
-const {promisePostNotice} = require('./ctrls');
-
+const {promisePostNotice, promiseGetResponse} = require('./ctrls');
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' })
+const mv = require('mv');
+var FileReader = require('filereader')
+  , fileReader = new FileReader()
+;
+var readBlob = require('read-blob');
 
 
 /**
  * @swagger
- * /proj-files/{project_id}:
+ * /proj-files:
+ *  get:
+ *    description: Retrieve all skills uploaded for a project
+ *    tags:
+ *      - proj-files
+ *    produces:
+ *      - application/json
+ *    parameters:
+ *      - name: project_id
+ *        in : query
+ *        required: false
+ *        type: string
+ *        description: Retrieve skills per project
+ *    responses:
+ *      200:
+ *        description: project skills
+ */
+router.get('/', (req, res) => {
+  const project_id = req.query.project_id;
+  let filter = {};
+  if (project_id !== undefined) {
+    filter['project_id'] = project_id;
+  }
+  promiseGetResponse(projFileDao.retrieve(filter), res, 200);
+});
+
+
+/**
+ * @swagger
+ * /proj-files:
  *  post:
  *    description: upload a file for a project
  *    tags:
@@ -19,28 +54,33 @@ const {promisePostNotice} = require('./ctrls');
  *    parameters:
  *      - name: project_id
  *        description: project ID
- *        in: path
+ *        in: formData
  *        required: true
  *        type: number
- *      - in: formData
- *        name: file
+ *      - name: file
+ *        in: formData
  *        type: file
+ *        required: true
  *        description: upload file
  *    responses:
  *      200:
  *        description: upload success
  */
-router.post('/:project_id', (req, res) =>{
-  const project_id = req.params.project_id;
-  if ( !req.files )
+router.post('/', (req, res) =>{
+
+  console.log(req.body);
+  console.log(req.files);
+  const project_id = req.body.project_id;
+
+  if ( req.files === undefined )
     return res.status(400).send('No files were uploaded');
 
   const fileObj = req.files.file;
-  const fileName = project_id + '_' + fileObj.name;
-  const file = fileDir + '/' + fileName;
+  const serverFile = project_id + '_' + fileObj.name;
+  const serverFileFull = fileDir + '/' + serverFile;
 
-  if (fs.existsSync(file)) {
-    fileObj.mv(file, err => {
+  if (fs.existsSync(serverFileFull)) {
+    fileObj.mv(serverFileFull, err => {
       if (err) {
         console.log(err);
         return res.status(500).send(err);
@@ -49,12 +89,12 @@ router.post('/:project_id', (req, res) =>{
     });
   }
   else {
-    fileObj.mv(file, (err) => {
+    fileObj.mv(serverFileFull, (err) => {
       if ( err ){
         console.log(err);
         return res.status(500).send(err);
       }
-      promisePostNotice(projFileDao.insert({project_id, file: fileName}), "Upload Success", res, 201);
+      promisePostNotice(projFileDao.insert({project_id, file: serverFile, file_name: fileObj.name }), "Upload Success", res, 201);
     })
   }
 });
@@ -89,10 +129,10 @@ router.get('/:file_id', (req, res)=> {
     if (val.length < 1)
       res.status(400).send("No such file");
     else {
-      const file = fileDir + '/' + val[0].file;
-      if (fs.existsSync(file)) {
+      const serverFileFull = fileDir + '/' + val[0].file;
+      if (fs.existsSync(serverFileFull)) {
         res.set('content-disposition', 'attachment;filename=' + val[0].file);
-        res.download(file, val[0].file);
+        res.download(serverFileFull, val[0].file_name);
       }
       else
         res.status(400).send("No such file");

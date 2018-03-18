@@ -13,6 +13,7 @@
     "react-scripts": "1.1.1",
     "recompose": "^0.26.0",
     "redux": "^3.7.2",
+    "redux-file-upload": "0.0.19",
     "redux-saga": "^0.16.0"
   },
   "scripts": {
