@@ -2,11 +2,11 @@ USE flc;
 
 INSERT INTO USER (username, password, email, image, image_url)
 VALUES ('xyz', '$2a$10$bNqsANQaxojDrovhLCF2DeaSxXKMA6l1iss/nzzBkS/SdhhtWCPT6', 'xyz@email.com',
-        'xyz_profile02', 'http://localhost/500/api/images/xyz');
+        'xyz_profile02.jpg', 'http://localhost:5000/api/images/xyz');
 INSERT INTO USER (username, first_name, last_name, password, email, about_me, image, image_url)
 VALUES
   ('abc', 'Chris', 'Li', '$2a$10$bNqsANQaxojDrovhLCF2DeaSxXKMA6l1iss/nzzBkS/SdhhtWCPT6', 'abc@world.com',
-   'This is Me', 'abc_profile01', 'http://localhost/5000/api/images/abc');
+   'This is Me', 'abc_profile01.jpg', 'http://localhost:5000/api/images/abc');
 
 INSERT INTO PROJECT (title, description, employer_id, min_budget, max_budget, start_date)
 VALUES ('Project 1', 'This is Project 1', 1, 300.0, 400.0, STR_TO_DATE('01/23/2018', '%m/%d/%Y'));
