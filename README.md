@@ -2,8 +2,8 @@
 
 Folder Structure: 
 
--- calculator -- client 
--- calculator -- server
+## -- calculator -- client 
+## -- calculator -- server
 
 # To run caculator, 
 cd caculator/client
@@ -18,8 +18,8 @@ npm install
 npm start 
 
 
--- freelancer -- client 
--- freelancer -- server
+## -- freelancer -- client 
+## -- freelancer -- server
 
 # To run freelancer
 cd freelancer/client
@@ -34,8 +34,8 @@ npm install
 # setup database
 
 login as root to MySQL
-1. run file freelancer/server/dao/sql/DDL.sql
-2. run file freelancer/server/dao/sql/DML.sql
+## 1. run file freelancer/server/dao/sql/DDL.sql
+## 2. run file freelancer/server/dao/sql/DML.sql
 
 # finally
 npm start 
