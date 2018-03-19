@@ -33,6 +33,7 @@ class FileUpload extends Component{
     console.log(this.props);
 
     formData.append('project_id',project.id);
+    formData.append('owner_id', project.employer_id);
     formData.append('file', this.state.file);
     const url = `${process.env.REACT_APP_API_URL}/proj-files/`;
     console.log(url);

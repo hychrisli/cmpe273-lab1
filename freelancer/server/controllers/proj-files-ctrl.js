@@ -63,7 +63,7 @@ router.post('/', (req, res) =>{
   console.log(req.body);
   console.log(req.files);
   const project_id = req.body.project_id;
-  const owner = req.body.owner;
+  const owner_id = req.body.owner_id;
 
   if ( req.files === undefined )
     return res.status(400).send('No files were uploaded');
@@ -87,7 +87,7 @@ router.post('/', (req, res) =>{
         console.log(err);
         return res.status(500).send(err);
       }
-      const attrs = {project_id, owner, file: serverFile, file_name: fileObj.name };
+      const attrs = {project_id, owner_id, file: serverFile, file_name: fileObj.name };
       promisePostNotice(projFileDao.insert(attrs), "Upload Success", res, 201);
     })
   }

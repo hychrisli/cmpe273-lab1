@@ -46,7 +46,7 @@ const UserSkillCreate = (props) => {
     return (
       <Create {...props} title={"Add Skill for " + username}>
         <SimpleForm redirect={'/user-skills?filter={"user_id"%3A"'+id+'"}'} submitOnEnter={false}>
-          <TextInput source="username" defaultValue={username}/>
+          <TextInput source="user_id" defaultValue={id}/>
           <SelectArrayInput source="skill_id" choices={skillChoices} optionText="skill_name" optionValue="id" />
         </SimpleForm>
       </Create> )

@@ -232,6 +232,8 @@ router.put('/:project_id', (req, res) => {
   req.body.start_date = date.toISOString().slice(0,10);
   delete req.body['skills'];
   delete req.body['files'];
+  delete req.body['bids'];
+  delete req.body['avg_price'];
   console.log(req.body);
   promisePostResponse(projDao.update(Number(req.params.project_id), req.body), req, res, 200);
 });
