@@ -1,11 +1,20 @@
 # CMPE273-LAB1
 
-Folder Structure: 
+The basic three-tier web application was built with React, Node.js, Express.js, and MySQL. Basic Freelancer features were included, such as authenticating users, authorizing user requests, creating projects, bidding for projects, and selecting bidders
 
-## -- calculator -- client 
-## -- calculator -- server
+#### [Project Report](docs/Lab1-Report-HongyuanLi.pdf)
 
-# To run caculator, 
+
+## Calculator
+
+###Folder Structure: 
+
+calculator   
+-- client   
+-- server
+
+###To run caculator: 
+```bash
 cd caculator/client
 npm install
 
@@ -15,13 +24,17 @@ npm install
 cd calculator
 npm install
 
-npm start 
+npm start
+``` 
+
+## Freelancer
 
 
-## -- freelancer -- client 
-## -- freelancer -- server
+freelancer  
+-- client   
+-- server  
 
-# To run freelancer
+### To run freelancer
 cd freelancer/client
 npm install
 
@@ -31,11 +44,11 @@ npm install
 cd freelancer
 npm install
 
-# setup database
+### set up database
 
-login as root to MySQL
-## 1. run file freelancer/server/dao/sql/DDL.sql
-## 2. run file freelancer/server/dao/sql/DML.sql
+login as root to MySQL  
+1. run file freelancer/server/dao/sql/DDL.sql  
+2. run file freelancer/server/dao/sql/DML.sql  
 
-# finally
+### finally
 npm start 
